@@ -3,13 +3,13 @@
 /* Example Nextflow pipline that runs Docking using rDock 
 */
 
-params.ligands = 'cdk2_ligprep_100.sdf.gz'
+params.ligands = 'cdk2_ligprep.sdf.gz'
 params.protein = 'cdk2_rdock.mol2'
 params.prmfile = 'cdk2_rdock.prm'
 params.asfile =  'cdk2_rdock.as'
-params.chunk = 2
-params.limit = 8
-params.num_dockings = 1
+params.chunk = 100
+params.limit = 0
+params.num_dockings = 100
 params.top = 5
 params.score = null
 
