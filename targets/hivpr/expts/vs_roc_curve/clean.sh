@@ -1,0 +1,2 @@
+#!/bin/sh
+rm -rf hivpr_all_results.sd.gz ligands.txt decoys.txt hivpr_1poseperlig.sdf.gz dataforR_uq.txt hivpr_Rinter_ROC.jpg work .nextflow.log*

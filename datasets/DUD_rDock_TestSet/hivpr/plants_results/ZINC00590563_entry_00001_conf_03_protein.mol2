@@ -1,0 +1,19 @@
+@<TRIPOS>MOLECULE
+ZINC00590563_entry_00001_conf_03_protein
+4 2 2
+SMALL
+NO_CHARGES
+
+
+@<TRIPOS>ATOM
+      1 HG1        12.7344   -1.1681   11.6557 H        80 THR80       0.0000 DICT
+      2 OG1        13.2070   -0.6410   11.0070 O.3      80 THR80       0.0000 DICT
+      3 HD2         4.3411    1.0498   18.6692 H       124 ASH124      0.0000
+      4 OD2         3.5900    1.6360   18.5490 O.3     124 ASH124      0.0000
+@<TRIPOS>BOND
+     1    2    1 1 DICT
+     2    4    3 1
+@<TRIPOS>SUBSTRUCTURE
+80 THR80 1
+124 ASH124 3
+@<TRIPOS>COMMENT

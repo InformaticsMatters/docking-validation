@@ -1,0 +1,33 @@
+***********************************************
+The rDock program is licensed under GNU-LGPLv3.0. http://rdock.sourceforge.net/
+Executable:	rbcavity ($Id: //depot/dev/client3/rdock/2013.1/src/exe/rbcavity.cxx#3 $)
+Library:	libRbt.so/2013.1/901 2013/11/27
+RBT_ROOT:	/rDock_2013.1_src
+RBT_HOME:	/home/rdock
+Current dir:	/work
+Date:		Sun Jun 11 10:38:07 2017
+***********************************************
+
+Command line arguments:
+-r hivpr_rdock.prm
+-was
+
+MAPPER
+CLASS	RbtLigandSiteMapper
+ENABLED	TRUE
+GRIDSTEP	0.5
+MAX_CAVITIES	1
+MIN_VOLUME	100
+NAME	MAPPER
+RADIUS	6.0
+REF_MOL	xtal-lig.sd
+SMALL_SPHERE	1.0
+TRACE	0
+VOL_INCR	0.0
+
+
+DOCKING SITE
+Total volume 2139 A^3
+Cavity #1	Size=17112 points; Vol=2139 A^3; Min=(-5,-11,-0.5); Max=(14.5,11.5,22); Center=(6.40962,0.887331,10.5231); Extent=(19.5,22.5,22.5)
+
+Cav = 17112; total = 17112

@@ -28,8 +28,8 @@ playground where new methodologies can be developed and benchmarked.
 
 ## Highlights
 
-* [CDK2 virtual screening with rDock](cdk2/expts/vs-rdock-expt1/README.md)
-* [Generating ROC curves](hivpr/expts/vs_roc_curve/README.md)
+* [CDK2 virtual screening with rDock](targets/cdk2/expts/vs-rdock-expt1/README.md)
+* [Generating ROC curves](targets/hivpr/expts/vs_roc_curve/README.md)
 
 ## Contributing
 

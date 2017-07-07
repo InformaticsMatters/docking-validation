@@ -1,0 +1,24 @@
+***********************************************
+The rDock program is licensed under GNU-LGPLv3.0. http://rdock.sourceforge.net/
+Executable:	rbdock ($Id: //depot/dev/client3/rdock/2013.1/src/exe/rbdock.cxx#4 $)
+Library:	libRbt.so/2013.1/901 2013/11/27
+RBT_ROOT:	/rDock_2013.1_src
+RBT_HOME:	/home/rdock
+Current dir:	/work/100
+Date:		Mon Jun 12 21:34:30 2017
+***********************************************
+
+
+Command line args:
+ -i hivpr_ligprep.sdf
+ -r hivpr_rdock.prm
+ -p dock.prm
+ -o hivpr_docking_out
+ -n 100
+Reading polar hydrogens only from ligand SD file
+
+DOCKING PROTOCOL:
+/rDock_2013.1_src/data/scripts/dock.prm
+Free docking (indexed VDW)
+RBT_FILE_READ_ERROR at ../src/lib/RbtBaseFileSource.cxx, line 233
+Error opening /rDock_2013.1_src/data/receptors/hivpr_rdock.prm

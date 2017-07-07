@@ -1,0 +1,101 @@
+
+
+                  PLANTS
+        Protein-Ligand ANT System
+               version 1.2
+
+
+author: Oliver Korb
+
+scientific contributors: T.E. Exner, T. Stuetzle
+
+contact: Oliver.Korb@uni-konstanz.de
+
+
+
+-------------------------------------------------------------
+Ligand data file: ligand1.mol2 (entry 1)
+-------------------------------------------------------------
+
+
+Input molecule: ligand1.mol2
+Description: ZINC00590563
+
+
+Ligand rotatable bonds (12): 
+N    (16  , N.am ) -C    (14  , C.2  )
+N    (16  , N.am ) -C    (17  , C.3  )
+C    (14  , C.2  ) -C    (13  , C.3  )
+C    (17  , C.3  ) -C    (18  , C.3  )
+C    (17  , C.3  ) -C    (27  , C.3  )
+C    (18  , C.3  ) -C    (19  , C.3  )
+C    (27  , C.3  ) -C    (28  , C.3  )
+C    (19  , C.3  ) -C    (20  , C.3  )
+C    (28  , C.3  ) -C    (29  , C.3  )
+C    (7   , C.2  ) -C    (4   , C.ar )
+C    (20  , C.3  ) -C    (21  , C.ar )
+C    (29  , C.3  ) -C    (30  , C.ar )
+
+
+Ligand formal charge table:
+Ligand formal charge: 0.00
+
+
+Atom type assignment for partial score term CHEMPLP-PLP:
+
+DONOR(1): 
+    N(  16)      
+
+ACCEPTOR(3): 
+    O(   8)          N(  25)          N(  34)      
+
+NONPOLAR(31): 
+    C(   1)          C(   2)          C(   3)          C(   4)          C(   5)          C(   6)          C(   7)          N(   9)      
+    C(  10)          C(  11)          C(  12)          C(  13)          C(  14)          S(  15)          C(  17)          C(  18)      
+    C(  19)          C(  20)          C(  21)          C(  22)          C(  23)          C(  24)          C(  26)          C(  27)      
+    C(  28)          C(  29)          C(  30)          C(  31)          C(  32)          C(  33)          C(  35)      
+
+Atom type assignment for partial score term CHEM-HB:
+
+DONOR(1): 
+    N(  16)      
+
+ACCEPTOR(3): 
+    O(   8)          N(  25)          N(  34)      
+
+NONPOLAR(31): 
+    C(   1)          C(   2)          C(   3)          C(   4)          C(   5)          C(   6)          C(   7)          N(   9)      
+    C(  10)          C(  11)          C(  12)          C(  13)          C(  14)          S(  15)          C(  17)          C(  18)      
+    C(  19)          C(  20)          C(  21)          C(  22)          C(  23)          C(  24)          C(  26)          C(  27)      
+    C(  28)          C(  29)          C(  30)          C(  31)          C(  32)          C(  33)          C(  35)      
+
+HYDROGEN(5): 
+    H(  49)          H(  58)[CHO]     H(  59)[CHO]     H(  68)[CHO]     H(  69)[CHO] 
+
+Intra-ligand score: CLASH2
+Ligand clash pairs: 475
+
+Ligand torsions: 86 (86 parameters matched)
+
+Ligand input conformation score: 1444.10
+
+PLPtotal,PLPparthbond,PLPpartsteric,PLPpartmetal,PLPpartrepulsive,PLPpartburpolar,LIG_NUM_CLASH,LIG_NUM_CONTACT,LIG_NUM_NO_CONTACT,CHEMpartmetal,CHEMparthbond,CHEMparthbondCHO,DON,ACC,UNUSED_DON,UNUSED_ACC,CHEMPLP_CLASH2,TRIPOS_TORS
+
+329.248,-1,217.868,0,0.0714069,0,20,15,0,0,0,0,5,3,5,3,0,9.17177
+
+ACO iterations 546  time 99.74s  evaluations 8238600
+
+Cluster time 0.46s (max. 10 structures, RMSD similarity 2.00 A):
+
+rank  1  score  -100.52  file ZINC00590563_entry_00001_conf_01
+rank  2  score   -99.65  file ZINC00590563_entry_00001_conf_02
+rank  3  score   -96.74  file ZINC00590563_entry_00001_conf_03
+rank  4  score   -96.25  file ZINC00590563_entry_00001_conf_04
+rank  5  score   -95.69  file ZINC00590563_entry_00001_conf_05
+rank  6  score   -93.05  file ZINC00590563_entry_00001_conf_06
+rank  7  score   -89.50  file ZINC00590563_entry_00001_conf_07
+rank  8  score   -89.13  file ZINC00590563_entry_00001_conf_08
+rank  9  score   -88.87  file ZINC00590563_entry_00001_conf_09
+rank 10  score   -88.52  file ZINC00590563_entry_00001_conf_10
+
+
