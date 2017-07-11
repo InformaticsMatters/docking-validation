@@ -1,0 +1,16 @@
+CDK2_Celling-v1.12_decoyset.sdf.gz
+CDK2.sdf.gz
+1ckp_cdk2_without_ligand_prep_maestro.pdb
+ligand_1ckp_cdk2.mol2
+
+cdk2_rdock_cav1.grd
+cdk2_rdock.as
+cdk2_protein.mol2
+xtal-lig.sdf
+rdock_results.sdf.gz
+
+ligands.txt
+rdock_results_1poseperlig.sdf.gz
+rdock_dataforR_uq.txt
+hivpr_Rinter_ROC.jpg
+
