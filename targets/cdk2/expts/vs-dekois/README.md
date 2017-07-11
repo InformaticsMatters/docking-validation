@@ -1,7 +1,8 @@
-# rDock validation CDK2 using DEKOIS
+# Validation of docking with rDock and PLANTS using the DEKOIS CDK2 dataset
 
 This experiment uses the DEKOIS datasets for CDK2 to validate docking with rDock.
 The output is a ROC curve showing the enrichment.
+We are also working towards doing the same using PLANTS.
 
 ## Requirements
 
@@ -53,7 +54,7 @@ See the rdock.nf file for details.
 ```
 The result is the rdock_results.sdf.gz file.
 
-This uses the [informaticsmatters/rdkit_pipelines/](https://hub.docker.com/r/informaticsmatters/rdkit_pipelines/) 
+This uses the [informaticsmatters/rdkit_pipelines](https://hub.docker.com/r/informaticsmatters/rdkit_pipelines/) 
 and [informaticsmatters/rdock/](https://hub.docker.com/r/informaticsmatters/rdock/) 
 Docker images.
 
@@ -66,6 +67,9 @@ Runs docking using PLANTS. This is currently an optional step as the results are
 ```sh
 ./5_run_plants.sh
 ```
+
+This uses the [informaticsmatters/plants](https://hub.docker.com/r/informaticsmatters/plants/) Docker image.
+Please take a look at that link for information about PLANTS licensing.
 
 **Note** This is not currently parallelised
 

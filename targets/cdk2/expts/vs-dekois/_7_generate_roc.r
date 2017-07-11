@@ -21,7 +21,7 @@ perfINTERuq <- performance(predINTERuq, 'tpr','fpr')
 
 #plot in jpg format with a grey line with theoretical random results
 jpeg("cdk2_rdock_ROC.jpg")
-plot(perfINTERuq,main="hivpr - ROC Curves",col="blue")
+plot(perfINTERuq,main="CDK2 rDock - ROC Curves",col="blue")
 abline(0,1,col="grey")
 dev.off()
 
