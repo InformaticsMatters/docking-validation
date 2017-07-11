@@ -1,7 +1,7 @@
 #!/bin/sh
 
 echo 'Creating lists...'
-gunzip -c CDK2.sdf.gz | sdreport -c"" -nh | cut -f 2 -d "," > ligands.txt
+gunzip -c CDK2.sdf.gz | sdreport -c"" -nh | cut -f 2 -d "," > actives.txt
 
 echo Filtering results ...
 gunzip -c rdock_results.sdf.gz | sdsort -n -s -fSCORE | sdfilter -f'$_COUNT == 1' | gzip >  rdock_results_1poseperlig.sdf.gz

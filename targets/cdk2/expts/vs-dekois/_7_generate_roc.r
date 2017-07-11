@@ -2,8 +2,7 @@
 library(ROCR);
  
 #load ligands and decoys
-lig <- unique(read.table("ligands.txt")[,1]);
-#dec <- unique(read.table("decoys.txt")[,1]);
+lig <- unique(read.table("actives.txt")[,1]);
  
 #load data file from docking
 uniqRes <- read.table("rdock_dataforR_uq.txt",header=T);

@@ -9,8 +9,13 @@ cdk2_protein.mol2
 xtal-lig.sdf
 rdock_results.sdf.gz
 
-ligands.txt
+actives.txt
 rdock_results_1poseperlig.sdf.gz
 rdock_dataforR_uq.txt
 cdk2_rdock_ROC.jpg
+
+results_plants
+PLANTS*.pid
+ligands.mol2
+
 
