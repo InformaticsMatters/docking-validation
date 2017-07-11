@@ -21,7 +21,7 @@ predINTERuq <- prediction(uniqRes$INTER*-1, uniqRes$IsActive)
 perfINTERuq <- performance(predINTERuq, 'tpr','fpr')
 
 #plot in jpg format with a grey line with theoretical random results
-jpeg("hivpr_Rinter_ROC.jpg")
+jpeg("cdk2_rdock_ROC.jpg")
 plot(perfINTERuq,main="hivpr - ROC Curves",col="blue")
 abline(0,1,col="grey")
 dev.off()

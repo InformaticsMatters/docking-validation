@@ -12,5 +12,5 @@ rdock_results.sdf.gz
 ligands.txt
 rdock_results_1poseperlig.sdf.gz
 rdock_dataforR_uq.txt
-hivpr_Rinter_ROC.jpg
+cdk2_rdock_ROC.jpg
 

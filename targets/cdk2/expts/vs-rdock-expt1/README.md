@@ -29,13 +29,13 @@ cavity.
 
 The results are the cdk2_rdock_cav1.grd and cdk2_rdock.as files.
 
-This run the rbcavity in the [informaticsmatters/rdock/](https://hub.docker.com/r/informaticsmatters/rdock/) 
+This runs the rbcavity in the [informaticsmatters/rdock/](https://hub.docker.com/r/informaticsmatters/rdock/) 
 Docker image.
 
-## 3. Perform docking
+### 3. Perform docking
 
 This runs the docking using [Nextflow](http://nextflow.io) which executes each of the stages, parallelising
-tha computationally demanding process of doing the actual dockings according to the number of cores on the machine.
+the computationally demanding process of doing the actual dockings according to the number of cores on the machine.
 See the rdock.nf file for details.
 
 ```sh
