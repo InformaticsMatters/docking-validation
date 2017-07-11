@@ -39,7 +39,7 @@ tha computationally demanding process of doing the actual dockings according to 
 See the rdock.nf file for details.
 
 ```sh
-3_run_rdock.sh
+./3_run_rdock.sh
 ```
 The result is the rdock_results.sdf.gz file.
 
