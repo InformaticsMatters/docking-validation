@@ -30,6 +30,7 @@ playground where new methodologies can be developed and benchmarked.
 
 * [CDK2 virtual screening with rDock](targets/cdk2/expts/vs-rdock-expt1/README.md)
 * [Generating ROC curves](targets/hivpr/expts/vs_roc_curve/README.md)
+* [Docking pose validation for ESR](targets/esr/expts/pose-validation/README.md)
 
 ## Contributing
 
