@@ -46,5 +46,5 @@ conventions. Unfortunately these are still being established.
 
 We will insist on all examples being well documented.
 
-Contact Tim Dudgeon <tdudgeon at informaticsmatters dot com> if you want to get involved.
+Contact Tim Dudgeon \<tdudgeon at informaticsmatters dot com\> if you want to get involved.
 
