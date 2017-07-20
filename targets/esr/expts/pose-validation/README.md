@@ -61,6 +61,20 @@ by rDock.
 The result are the files in the results_plants directory and plants.rmsd
 
 
+## Viewing
+
+To view the results drag the following files to a [NGL viewer window](http://nglviewer.org/ngl/):
+
+* 1sj0_rdock.mol2 (the protein)
+* 1sj0_ligand.mol2 (the original ligand)
+* 1sj0_rdock_out.sd (the rDock docked structures - you only see the first one)
+* results_plants/LIGAND_entry_00001_conf_01.mol2 (the best PLANTs docked structure)
+* ngl-site-sphere.ngl (the cavity definition represented as a sphere e.g. as used by PLANTS)
+
+![rdock plants poses](rdock_plants_poses.png)
+
+Viewing in other 3D viewers should also be possible.
+
 ## Summary
 
 These settings are adjusted to ensure that rDock and PLANTS takes about the same time to complete.

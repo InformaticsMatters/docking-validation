@@ -15,9 +15,9 @@ write_multi_mol2 0
 
 # binding site definition
 # these are determined from the output of the rbcavity program
-# they need to be visually checked.ls
+# they need to be visually checked.
 bindingsite_center 31.3992 -2.39852 23.0188
-bindingsite_radius 22
+bindingsite_radius 11
 
 
 # cluster algorithm
