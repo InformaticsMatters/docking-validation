@@ -26,9 +26,17 @@ This is an upstream project for the [Squonk computational notebook](http://squon
 are generated in a way that makes them easy to integrated into Squonk. As such it provides a 
 playground where new methodologies can be developed and benchmarked. 
 
+## Datasets
+
+Inlcuded in this repo are a number of public datasets that are useful for testing and validation studies.
+You can find them in the [datasets directory](datasets).
+Feel free to contribute additional datasets, but if doing so please include documentation describing the source
+of the dataset and attribute ownership appropriately.
+
 ## Highlights
 
 * [CDK2 virtual screening with rDock](targets/cdk2/expts/vs-rdock-expt1/README.md)
+* [CDK validation using DEKIOS data](targets/cdk2/expts/vs-dekois)
 * [Generating ROC curves](targets/hivpr/expts/vs_roc_curve/README.md)
 * [Docking pose validation for ESR](targets/esr/expts/pose-validation/README.md)
 
@@ -39,5 +47,5 @@ conventions. Unfortunately these are still being established.
 
 We will insist on all examples being well documented.
 
-Contact Tim Dudgeon <tdudgeon at informaticsmatters dot com> if you want to get involved.
+Contact Tim Dudgeon \<tdudgeon at informaticsmatters dot com\> if you want to get involved.
 
