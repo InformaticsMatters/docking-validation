@@ -3,7 +3,7 @@
 This experiment uses the DEKOIS datasets for DHFR to validate docking with rDock.
 The output is a ROC curve showing the enrichment.
 
-The experiment aims to standarize the process so that it can be used as a template fro defining rDock execution
+The experiment aims to standarize the process so that it can be used as a template for defining rDock execution
 in Squonk. 
 
 ## Requirements
