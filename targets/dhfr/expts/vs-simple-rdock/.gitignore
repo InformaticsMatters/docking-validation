@@ -5,7 +5,6 @@ ligands.sdf.gz
 receptor.pdb
 receptor.mol2
 receptor.as
-receptor.prm
 receptor_cav1.grd
 dhrf_rdock_config.zip
 rdock_results.sdf.gz

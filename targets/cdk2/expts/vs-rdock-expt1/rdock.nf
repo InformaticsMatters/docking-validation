@@ -32,7 +32,7 @@ process sdsplit {
     file 'ligands_part*' into ligand_parts mode flatten
     
     """
-	python -m pipelines.rdkit.filter -i $ligands -c $params.chunk -l $params.limit -d 4 -o ligands_part -of sdf --no-gzip
+	python -m rdkit_utils.filter -i $ligands -c $params.chunk -l $params.limit -d 4 -o ligands_part -of sdf --no-gzip
     """
 }
 

@@ -35,7 +35,7 @@ process sdsplit {
     file 'ligands_part*' into ligand_parts mode flatten
     
     """
-    zcat $actives $decoys | python -m pipelines.rdkit.filter -if sdf -c $params.chunk -l $params.limit -d 4 -o ligands_part -of sdf --no-gzip
+    zcat $actives $decoys | python -m rdkit_utils.filter -if sdf -c $params.chunk -l $params.limit -d 4 -o ligands_part -of sdf --no-gzip
     """
 }
 
