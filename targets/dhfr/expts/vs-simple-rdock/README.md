@@ -3,8 +3,8 @@
 Simple example of how to set up virtual screening using rDock.
 This mainpurpose of this example is to illustrate how to set up rDock for virtual screening for a
 particular target so that the prepared components (receptor and active site definition) can be used
-in virtual screening workflows in Squonk. Use a project like this to setup the dcoking experiment,
-and onve you are happy with the results use the items generated in Squonk. This allows an expert to set up 
+in virtual screening workflows in Squonk. Use a project like this to setup the docking experiment,
+and once you are happy with the results use the items generated in Squonk. This allows an expert to set up 
 the experiment, but for the non-expert to easily run docking in Squonk.
 
 ## Contents
@@ -61,14 +61,14 @@ See the rdock.nf file for details.
 The result is the rdock_results.sdf.gz file.
 
 This uses the [informaticsmatters/rdkit_pipelines](https://hub.docker.com/r/informaticsmatters/rdkit_pipelines/) 
-and [informaticsmatters/rdock/](https://hub.docker.com/r/informaticsmatters/rdock/) Docker images.
+and [informaticsmatters/rdock-mini/](https://hub.docker.com/r/informaticsmatters/rdock-mini/) Docker images.
 
 **Note** this will take some time depending on the power of your computer.
 
 To view the results do something like this:
 
 ```
-zcat rdock_results.sdf.gz |  docker run -i --rm -v $PWD:$PWD -w $PWD informaticsmatters/rdock sdreport -tSCORE,SCORE.norm  | more
+zcat rdock_results.sdf.gz |  docker run -i --rm -v $PWD:$PWD:Z -w $PWD -u $(id -u):$(id -g) informaticsmatters/rdock-mini:latest sdreport -tSCORE,SCORE.norm  | more
 ```
 
 

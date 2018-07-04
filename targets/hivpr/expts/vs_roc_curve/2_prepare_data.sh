@@ -1,3 +1,5 @@
 #!/bin/bash
 
-docker run -it --rm -v $PWD:/work -w /work informaticsmatters/rdock bash _2_prepare_data.sh
+set -e
+
+docker run -it --rm -v $PWD:/work:Z -w /work -u $(id -u):$(id -g) informaticsmatters/rdock-mini:latest bash _2_prepare_data.sh

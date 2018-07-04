@@ -23,7 +23,7 @@ asfile  = file(params.asfile)
 */
 process sdsplit {
 
-	container 'informaticsmatters/rdkit_pipelines'
+	container 'informaticsmatters/rdkit_pipelines:latest'
 
 	input:
     file ligands
@@ -32,7 +32,7 @@ process sdsplit {
     file 'ligands_part*' into ligand_parts mode flatten
     
     """
-	python -m rdkit_utils.filter -i $ligands -c $params.chunk -l $params.limit -d 4 -o ligands_part -of sdf --no-gzip
+	python -m pipelines_utils_rdkit.filter -i $ligands -c $params.chunk -l $params.limit -d 4 -o ligands_part -of sdf --no-gzip
     """
 }
 
@@ -41,7 +41,7 @@ process sdsplit {
 */
 process rdock {
 
-	container 'informaticsmatters/rdock'
+	container 'informaticsmatters/rdock-mini:latest'
 
 	input:
     file part from ligand_parts
@@ -63,7 +63,7 @@ process rdock {
 */
 process results {
 
-	container 'informaticsmatters/rdock'
+	container 'informaticsmatters/rdock-mini:latest'
 
 	publishDir './', mode: 'copy'
 

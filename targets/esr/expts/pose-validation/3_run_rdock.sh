@@ -1,4 +1,6 @@
 #!/bin/bash
 
-docker run -it --rm -v $PWD:/work -w /work informaticsmatters/rdock bash _3_run_rdock.sh
+set -e
+
+docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/rdock:latest bash _3_run_rdock.sh
 

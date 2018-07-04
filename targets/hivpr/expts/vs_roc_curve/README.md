@@ -40,7 +40,7 @@ This takes a few minutes
 The result is the file hivpr_1poseperlig.sdf.gz which contains the best pose for each ligand and data extracted
 from that file that is needed by R (the file dataforR_uq.txt).
 
-This uses the [informaticsmatters/rdock](https://hub.docker.com/r/informaticsmatters/rdock/builds/) Docker image
+This uses the [informaticsmatters/rdock-mini](https://hub.docker.com/r/informaticsmatters/rdock-mini/) Docker image
 that contains the rDock programs.
 
 ### Generate ROC curves

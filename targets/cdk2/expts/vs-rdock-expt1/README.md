@@ -44,7 +44,7 @@ See the rdock.nf file for details.
 The result is the rdock_results.sdf.gz file.
 
 This uses the [informaticsmatters/rdkit_pipelines/](https://hub.docker.com/r/informaticsmatters/rdkit_pipelines/) 
-and [informaticsmatters/rdock/](https://hub.docker.com/r/informaticsmatters/rdock/) 
+and [informaticsmatters/rdock-mini/](https://hub.docker.com/r/informaticsmatters/rdock-mini/) 
 Docker images.
 
 **Note** this will take some time depending on the power of your computer.
