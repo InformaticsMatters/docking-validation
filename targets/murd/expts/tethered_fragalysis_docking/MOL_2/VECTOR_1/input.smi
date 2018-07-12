@@ -1,0 +1,10 @@
+CN1CCN(C(=O)Nc2ccc(F)c(C#N)c2)CC1	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+COc1cc(NC(=O)N2CCN(C)CC2)ccc1F	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+CN1CCN(C(=O)Nc2ccc(F)c(F)c2)CC1	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+CC(=O)c1cc(NC(=O)N2CCN(C)CC2)ccc1F	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+CN1CCN(C(=O)Nc2ccc(F)c(C(F)F)c2)CC1	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+Cc1cc(NC(=O)N2CCN(C)CC2)ccc1F	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+CCc1cc(NC(=O)N2CCN(C)CC2)ccc1F	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+CN1CCN(C(=O)Nc2ccc(F)c(N)c2)CC1	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+CN1CCN(C(=O)Nc2ccc(F)c(C(N)=O)c2)CC1	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1
+CN1CCN(C(=O)Nc2ccc(F)c([N+](=O)[O-])c2)CC1	CN1CCN(C(=O)Nc2ccc(F)cc2)CC1	CN1CCN(C(=O)Nc2ccc(F)c([Xe])c2)CC1

@@ -1,0 +1,10 @@
+**/receptor.mol2
+**/*_ligands_h.sdf
+**/reference_hydrogens.sdf
+**/input_hydrogens.sdf
+**/recep.as
+**/*ligands_h_part*.sdf
+**/*docked_h_part*.sd
+**/.sdf.gz
+**/recep_cav1.grd
+results

@@ -1,0 +1,9 @@
+CN1CCN(c2ccc(S(C)(=O)=O)cc2)CC1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+CN1CCN(c2ccc(NC(=O)CN)cc2)CC1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+C=CC(=O)Nc1ccc(N2CCN(C)CC2)cc1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+CCC(=O)Nc1ccc(N2CCN(C)CC2)cc1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+CN1CCN(c2ccc(NC(=O)CO)cc2)CC1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+CC(=O)Nc1ccc(N2CCN(C)CC2)cc1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+CN1CCN(c2ccc([N+](=O)[O-])cc2)CC1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+C#CC(=O)Nc1ccc(N2CCN(C)CC2)cc1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
+CN1CCN(c2ccc(NS(C)(=O)=O)cc2)CC1	CN1CCN(c2ccc(C#N)cc2)CC1	CN1CCN(c2ccc([Xe])cc2)CC1
