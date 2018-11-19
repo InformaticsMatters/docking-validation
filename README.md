@@ -41,6 +41,10 @@ you would need a Singularity command like this:
 singularity exec ~/rdock-mini_latest.sif rbcavity -r 1sj0_rdock.prm -was
 ```
 
+When running with Nextflow the Docker images defined in a workflow are automatically pulled and converted
+to Singlularity. You might want to set the `NXF_SINGULARITY_CACHEDIR` environment variable
+to define where Nextflow places the Singularity images so that you do not end up with copies in every 'project'.
+
 ## Relationship with Squonk
 
 This is an upstream project for the [Squonk computational notebook](http://squonk.it), as is 

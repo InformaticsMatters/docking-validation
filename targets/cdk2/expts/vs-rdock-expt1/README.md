@@ -6,7 +6,7 @@ It uses data from the [DUD_rDock_TestSet](http://rdock.sourceforge.net/validatio
 
 ## Requirements
 
-Nextflow and Docker must be installed on the host machine.
+Nextflow and Docker (or Singularity) must be installed on the host machine.
 
 ## To run 
 
@@ -51,3 +51,5 @@ Docker images.
 To perform 100 dockings on the entire dataset takes about 10 hours on a 24 core machine.
 To run smaller jobs see the comments in the 2_run_rdock.sh file.
 
+**Note** this workflow can also be run using Singularity. Look at the `2_create_cavity.sh` and `3_run_rdock.sh`
+scripts and change `-with-docker` to `-with-singularity`
