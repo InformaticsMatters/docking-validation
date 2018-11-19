@@ -12,19 +12,41 @@ A key part of the strategy is perform the execution in [Docker containers](https
 so that you do NOT need to install lots of different tools on your host machine. Currently the only
 tools you need installed are:
 
-* [Docker](https://www.docker.com/community-edition) 
+* [Docker](https://www.docker.com/community-edition) or [Singularity](https://www.sylabs.io/singularity/)
 * [Nextflow](https://www.nextflow.io/) 
 * [Java](http://www.oracle.com/technetwork/java/javase/overview/index.html) (neded by Nextflow).
 
 Many of the Docker images can be found on the Informatics Matters 
 [Docker Hub repository](https://hub.docker.com/u/informaticsmatters/).
 
+## Docker and Singularity
+
+The majority of this work uses Docker containers and the scripts are written for Docker.
+However most if not all should also work with Singularity.
+To run with Singularity first create the necessary Singularity images from the Docker images
+using a command like this:
+```
+singularity pull docker://informaticsmatters/rdock:latest
+``` 
+
+Then convert the `docker run` commands to `singularity exec` commands. The current directory is automatically
+mounted and the process runs as the current user so the command is a little simpler. For example, for a 
+Docker command like this:
+```
+docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/rdock-mini:latest rbcavity -r 1sj0_rdock.prm -was
+```
+
+you would need a Singularity command like this:
+```
+singularity exec ~/rdock-mini_latest.sif rbcavity -r 1sj0_rdock.prm -was
+```
+
 ## Relationship with Squonk
 
 This is an upstream project for the [Squonk computational notebook](http://squonk.it), as is 
 [Pipelines](https://github.com/InformaticsMatters/pipelines). The aim is that these workflows
 are generated in a way that makes them easy to integrated into Squonk. As such it provides a 
-playground where new methodologies can be developed and benchmarked. 
+playground where new methodologies can be developed and benchmarked.
 
 ## Datasets
 
@@ -36,10 +58,10 @@ of the dataset and attribute ownership appropriately.
 ## Highlights
 
 * [CDK2 virtual screening with rDock](targets/cdk2/expts/vs-rdock-expt1/README.md)
-* [CDK validation using DEKIOS data](targets/cdk2/expts/vs-dekois)
+* [CDK validation using DEKIOS data](targets/cdk2/expts/vs-dekois/README.md)
 * [Generating ROC curves](targets/hivpr/expts/vs_roc_curve/README.md)
 * [Docking pose validation for ESR](targets/esr/expts/pose-validation/README.md)
-* [rDock setup for use in Squonk](targets/dhfr/expts/vs-simple)
+* [rDock setup for use in Squonk](targets/dhfr/expts/vs-simple-rdock/README.md)
 
 ## Contributing
 

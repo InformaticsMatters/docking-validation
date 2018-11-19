@@ -2,6 +2,9 @@
 **/.nextflow
 **/.nextflow.log
 **/.nextflow.log.*
+**/timeline.html
+**/report.html
+**/trace.txt
 *~
 working
 .idea
