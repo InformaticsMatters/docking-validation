@@ -23,13 +23,10 @@ RDock is used for the docking.
 
 ## Dataset
 
-The data is a small subset of data from fragments screening of NUDT7A performed by the SGC at the Diamond Light
-Source. The 5 structures were selected and prepared by Anthony Bradley. The ligands were removed to generate
-apo structures. All waters were also removed. Proteins are in PDB format, ligands in MOLFILE format. 
-The proteins are already aligned and there is only small variation on the protein backbone between the different structures.
+The data is a small subset of data from fragment screening of NUDT7A performed by the [SGC](https://www.thesgc.org/) at the Diamond Light
+Source's [XChem project](https://www.diamond.ac.uk/Instruments/Mx/Fragment-Screening.html). More info on that target at the SGC can be found [here](https://www.thesgc.org/tep/nudt7).The 5 structures were selected and prepared by Anthony Bradley. The ligands were removed to generate apo structures and all waters were removed. Proteins are in PDB format, ligands in MOLFILE format. The proteins are already aligned and there is only small variation on the protein backbone between the different structures.
 
-The ligands for NUDT7A-x0129, NUDT7A-x0254, NUDT7A-x0384 and NUDT7A-x0389 occupy a very similar region in the cavity
-whilst NUDT7A-x0151 occupies a different region with no real overlap.
+The ligands for NUDT7A-x0129, NUDT7A-x0254, NUDT7A-x0384 and NUDT7A-x0389 occupy a very similar region in the cavity whilst NUDT7A-x0151 occupies a different region with no real overlap.
 
 ![ligands in cavity](ligands.png)
 The ligand for NUDT7A-x0151 is to the top left, separate from the 4 other ligands.
