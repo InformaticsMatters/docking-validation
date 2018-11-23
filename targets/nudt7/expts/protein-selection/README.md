@@ -142,7 +142,7 @@ RMSD Scores are as follows
 | | NUDT7A-x0254 | 50 | 7.56
 | | NUDT7A-x0384 | 45 | 6.28
 | | NUDT7A-x0389 | 3 | 7.06
-| | NUDT7A-x0254 | NUDT7A-x0129 | 47 | 1.79
+| NUDT7A-x0254 | NUDT7A-x0129 | 47 | 1.79
 | | NUDT7A-x0151 | 31 | 6.02
 | | NUDT7A-x0254 | 41 | 1.91
 | | NUDT7A-x0384 | 47 | 3.46
