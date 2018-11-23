@@ -130,32 +130,33 @@ Run this with the command:
 
 RMSD Scores are as follows
 
-Target | Ligand | Rank | RMSD
-NUDT7A-x0129 | NUDT7A-x0129 | 35 | 1.36
-| NUDT7A-x0151 | 18 | 4.35
-| NUDT7A-x0254 | 9 | 1.20
-| NUDT7A-x0384 | 49 | 4.37
-| NUDT7A-x0389 | 47 | 2.15
-NUDT7A-x0151 | NUDT7A-x0129 | 30 | 6.92
-| NUDT7A-x0151 | 49 | 1.00
-| NUDT7A-x0254 | 50 | 7.56
-| NUDT7A-x0384 | 45 | 6.28
-| NUDT7A-x0389 | 3 | 7.06
-| NUDT7A-x0254 | NUDT7A-x0129 | 47 | 1.79
-| NUDT7A-x0151 | 31 | 6.02
-| NUDT7A-x0254 | 41 | 1.91
-| NUDT7A-x0384 | 47 | 3.46
-| NUDT7A-x0389 | 35 | 2.00
-NUDT7A-x0384 | NUDT7A-x0129 | 15 | 5.69
-| NUDT7A-x0151 | 46 | 4.46
-| NUDT7A-x0254 | 46 | 4.51
-| NUDT7A-x0384 | 20 | 1.18
-| NUDT7A-x0389 | 21 | 6.34
-NUDT7A-x0389 | NUDT7A-x0129 | 39 | 1.51
-| NUDT7A-x0151 | 26 | 5.08
-| NUDT7A-x0254 | 39 | 4.30
-| NUDT7A-x0384 | 48 | 4.20
-| NUDT7A-x0389 | 41 | 1.28
+| Target | Ligand | Rank | RMSD
+| --- | --- | --- | ---
+| NUDT7A-x0129 | NUDT7A-x0129 | 35 | 1.36
+| | NUDT7A-x0151 | 18 | 4.35
+| | NUDT7A-x0254 | 9 | 1.20
+| | NUDT7A-x0384 | 49 | 4.37
+| | NUDT7A-x0389 | 47 | 2.15
+| NUDT7A-x0151 | NUDT7A-x0129 | 30 | 6.92
+| | NUDT7A-x0151 | 49 | 1.00
+| | NUDT7A-x0254 | 50 | 7.56
+| | NUDT7A-x0384 | 45 | 6.28
+| | NUDT7A-x0389 | 3 | 7.06
+| | NUDT7A-x0254 | NUDT7A-x0129 | 47 | 1.79
+| | NUDT7A-x0151 | 31 | 6.02
+| | NUDT7A-x0254 | 41 | 1.91
+| | NUDT7A-x0384 | 47 | 3.46
+| | NUDT7A-x0389 | 35 | 2.00
+| NUDT7A-x0384 | NUDT7A-x0129 | 15 | 5.69
+| | NUDT7A-x0151 | 46 | 4.46
+| | NUDT7A-x0254 | 46 | 4.51
+| | NUDT7A-x0384 | 20 | 1.18
+| | NUDT7A-x0389 | 21 | 6.34
+| NUDT7A-x0389 | NUDT7A-x0129 | 39 | 1.51
+| | NUDT7A-x0151 | 26 | 5.08
+| | NUDT7A-x0254 | 39 | 4.30
+| | NUDT7A-x0384 | 48 | 4.20
+| | NUDT7A-x0389 | 41 | 1.28
 
 
 A number of interesting conclusions can be made.
