@@ -4,7 +4,7 @@
 
 Often you might have multiple crystal structures for a protein, each with different ligands present.
 This introduces an extra complexity when docking because you need to work out which one(s) are going
-to give you the best results. This is common on fragment screening where you might have multiple fragments
+to give you the best results. This is common in fragment screening where you might have multiple fragments
 crystalised into the same target protein. Those fragments may explore the extent of the cavity well, but
 if you are wanting to use docking to screen potential derivatives of those fragments then you need to 
 determine what protein structure(s) you are going to use.
@@ -25,11 +25,11 @@ RDock is used for the docking.
 
 The data is a small subset of data from fragments screening of NUDT7A performed by the SGC at the Diamond Light
 Source. The 5 structures were selected and prepared by Anthony Bradley. The ligands were removed to generate
-apo structures. All waters wee alos removed. Proteins are in PDB format, ligands in MOLFILE format. 
+apo structures. All waters were also removed. Proteins are in PDB format, ligands in MOLFILE format. 
 The proteins are already aligned and there is only small variation on the protein backbone between the different structures.
 
-The ligands for NUDT7A-x0129, NUDT7A-x0254, NUDT7A-x0384 and NUDT7A-x0389.mol occupy a very similar region in the cavity
-whilst NUDT7A-x0151 occupies a different region with very little overlap.
+The ligands for NUDT7A-x0129, NUDT7A-x0254, NUDT7A-x0384 and NUDT7A-x0389 occupy a very similar region in the cavity
+whilst NUDT7A-x0151 occupies a different region with no real overlap.
 
 ![ligands in cavity](ligands.png)
 The ligand for NUDT7A-x0151 is to the top left, separate from the 4 other ligands.
@@ -69,9 +69,9 @@ combining the atoms of all ligands into a single molecule. This is done with a [
 Xavier Barril who has previously used this technique. The Frankenstein molecule has only atoms, and no bonds, and 'internal'
 atoms that do not contribute to the external surface are excluded. With this ligand we can create a cavity, and as the 
 combined ligands should explore the cavity reasonably efficiently we can use a relatively small radius of 3A around those
-atoms. See the [parameter file]()template.prm for details.
+atoms. See the [parameter file](template.prm) for details.
 
-The cavity definition is generated for each protein with the [](2_create_cavity.sh) script which does these actions:
+The cavity definition is generated for each protein with the [2_create_cavity.sh](2_create_cavity.sh) script which does these actions:
 
 1. Creates the actual parameters file for each protein from a template
 2. Prepares the protein in MOL2 format using OpenBabel. Note that this is quite a simplistic approach and we plan to come back to this later.
@@ -217,6 +217,8 @@ Investigate better ways to prepare the protein.
 Investigate the two spheres approach for cavity generation.
 
 Investigate other docking algorithms.
+
+Investigate clustering the docking poses and keeping the top scoring pose in each cluster.
 
 Examine these docking poses with respect to the known hydrogen bonding and other interactions.
 
