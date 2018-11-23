@@ -167,7 +167,7 @@ of a good pose.
  
 This is seen for NUDT7A-x0389 where the ligand is consistently docked into the same space but two ways round, with the
 wrong way scoring significantly better than the right way. In the figure below the ball and stick representation is the 
-ligand in the crustal structure and the two licorice representation are the best scoring docking pose and the pose with 
+ligand in the crystal structure and the two licorice representation are the best scoring docking pose and the pose with 
 the best RMSD. The one with the best RMSD ranks 41st in the scoring list! The best scoring pose overlays very well but
 is the wrong way round. 
 
