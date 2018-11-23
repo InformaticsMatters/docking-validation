@@ -66,6 +66,7 @@ of the dataset and attribute ownership appropriately.
 * [Generating ROC curves](targets/hivpr/expts/vs_roc_curve/README.md)
 * [Docking pose validation for ESR](targets/esr/expts/pose-validation/README.md)
 * [rDock setup for use in Squonk](targets/dhfr/expts/vs-simple-rdock/README.md)
+* [Protein selection for docking](targets/nudt7/expts/protein-selection/README.md)
 
 ## Contributing
 
