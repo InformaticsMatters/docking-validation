@@ -174,22 +174,24 @@ is the wrong way round.
 
 The overall picture for the best RMSD scores looks like this (rows are ligands, columns are proteins).
 
-Best RMSD | NUDT7A-x0129 | NUDT7A-x0151 | NUDT7A-x0254 | NUDT7A-x0384 | NUDT7A-x0389
-NUDT7A-x0129 | 1.36 | 6.92 | 1.79 | 5.69 | 1.51
-NUDT7A-x0151 | 4.35 | 1.00 | 6.02 | 4.46 | 5.08
-NUDT7A-x0254 | 1.20 | 7.56 | 1.91 | 4.51 | 4.30
-NUDT7A-x0384 | 4.37 | 6.28 | 3.46 | 1.18 | 4.20
-NUDT7A-x0389 | 2.15 | 7.06 | 2.00 | 6.34 | 1.28
-SUM | 13.43 | 28.82 | 15.18 | 22.18 | 16.37
+| Best RMSD | NUDT7A-x0129 | NUDT7A-x0151 | NUDT7A-x0254 | NUDT7A-x0384 | NUDT7A-x0389
+| --- | --- | --- | --- | --- | ---
+| NUDT7A-x0129 | 1.36 | 6.92 | 1.79 | 5.69 | 1.51
+| NUDT7A-x0151 | 4.35 | 1.00 | 6.02 | 4.46 | 5.08
+| NUDT7A-x0254 | 1.20 | 7.56 | 1.91 | 4.51 | 4.30
+| NUDT7A-x0384 | 4.37 | 6.28 | 3.46 | 1.18 | 4.20
+| NUDT7A-x0389 | 2.15 | 7.06 | 2.00 | 6.34 | 1.28
+| SUM | 13.43 | 28.82 | 15.18 | 22.18 | 16.37
 
 The ranks look like this:
 
-RMSD Rank | NUDT7A-x0129 | NUDT7A-x0151 | NUDT7A-x0254 | NUDT7A-x0384 | NUDT7A-x0389
-NUDT7A-x0129 | 35 | 30 | 47 | 15 | 39
-NUDT7A-x0151 | 18 | 49 | 31 | 46 | 26
-NUDT7A-x0254 | 9 | 50 | 41 | 46 | 39
-NUDT7A-x0384 | 49 | 45 | 47 | 20 | 48
-NUDT7A-x0389 | 47 | 3 | 35 | 21 | 41
+| RMSD Rank | NUDT7A-x0129 | NUDT7A-x0151 | NUDT7A-x0254 | NUDT7A-x0384 | NUDT7A-x0389
+| --- | --- | --- | --- | --- | ---
+| NUDT7A-x0129 | 35 | 30 | 47 | 15 | 39
+| NUDT7A-x0151 | 18 | 49 | 31 | 46 | 26
+| NUDT7A-x0254 | 9 | 50 | 41 | 46 | 39
+| NUDT7A-x0384 | 49 | 45 | 47 | 20 | 48
+| NUDT7A-x0389 | 47 | 3 | 35 | 21 | 41
 
 Clearly the 'best' pose as determined by RMSD to the crystal structure ligand often ranks quite low.
 But despite this rDock is able to find the 'correct' pose in all cases.
