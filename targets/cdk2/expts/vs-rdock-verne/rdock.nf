@@ -7,6 +7,7 @@ params.ligands = 'cdk2_ligprep.sdf.gz'
 params.protein = 'cdk2_rdock.mol2'
 params.prmfile = 'cdk2_rdock.prm'
 params.asfile =  'cdk2_rdock.as'
+params.submit = 'submit-rdock.sh'
 params.chunk = 50
 params.limit = 0
 params.num_dockings = 50
@@ -17,6 +18,7 @@ prmfile = file(params.prmfile)
 ligands = file(params.ligands)
 protein = file(params.protein)
 asfile  = file(params.asfile)
+submit  = file(params.submit)
 
 /* Splits the input SD file into multiple files of ${params.chunk} records.
 * Each file is sent individually to the ligand_parts channel
@@ -48,15 +50,16 @@ process rdock {
     file protein
     file prmfile
     file asfile
-	
+    file submit
+
     output:
     file 'docked_part*.sd' into docked_parts
     
     """
     MYTMP=\$(ssh diamond mktemp -d --tmpdir=/home/gse84885/tmp)
     echo "Created work dir of \$MYTMP"
-    scp cdk2_rdock.as cdk2_rdock.mol2 cdk2_rdock.prm ligands_part*.sdf diamond:/\$MYTMP
-    ssh diamond "module load global/testcluster && ./run-rdock-many.sh \$MYTMP ${params.num_dockings}"
+    scp $submit.name $asfile.name $protein.name $prmfile.name ligands_part*.sdf diamond:/\$MYTMP
+    ssh diamond "module load global/testcluster && cd \$MYTMP && ./submit-rdock.sh ${params.num_dockings}"
     scp diamond:/\$MYTMP/docked_part*.sd .
     """
 }
