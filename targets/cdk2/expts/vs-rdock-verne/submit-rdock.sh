@@ -12,5 +12,6 @@ for file in ligands_part*.sdf; do
     sep=","
 done
 echo "Jobs $jobids submitted"
-qsub -hold_jid ${jobids} -sync y -b y -N wait-for-rdock echo "DONE"
+qsub -hold_jid ${jobids} -b y -N wait-for-rdock touch DONE
+echo "Holding job submitted"
 

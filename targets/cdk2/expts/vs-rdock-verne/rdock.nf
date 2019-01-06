@@ -59,8 +59,25 @@ process rdock {
     MYTMP=\$(ssh diamond mktemp -d --tmpdir=/home/gse84885/tmp)
     echo "Created work dir of \$MYTMP"
     scp $submit.name $asfile.name $protein.name $prmfile.name ligands_part*.sdf diamond:/\$MYTMP
-    ssh diamond "module load global/testcluster && cd \$MYTMP && ./submit-rdock.sh ${params.num_dockings}"
-    scp diamond:/\$MYTMP/docked_part*.sd .
+    ssh -o ServerAliveInterval=30 diamond "module load global/testcluster && cd \$MYTMP && ./submit-rdock.sh ${params.num_dockings}"
+    CMD="scp diamond:\$MYTMP/DONE ."
+    set +e
+    \$(\$CMD &> /dev/null)
+    STATUS=\$?
+    set -e
+    COUNT=1
+    echo "Attempt \$COUNT status=\$STATUS"
+    until [ \$STATUS -eq 0 ]; do
+        ((COUNT++))
+        echo "Attempt \$COUNT status= \$STATUS"
+        sleep 10
+        set +e
+        \$(\$CMD &> /dev/null)
+        STATUS=\$?
+        set -e
+    done
+    echo "Wait completed"
+    scp diamond:\$MYTMP/docked_part*.sd .
     """
 }
 
