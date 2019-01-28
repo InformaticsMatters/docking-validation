@@ -6,7 +6,7 @@
 set -e
 
 echo "Creating Frankenstein ligand ..."
-docker run -v $PWD:$PWD:Z -w $PWD perl:5 perl select_points_SDF.pl ligands.sdf > ligands_frankenstein.sdf
+docker run --rm -v $PWD:$PWD:Z -w $PWD perl:5 perl select_points_SDF.pl ligands.sdf > ligands_frankenstein.sdf
 
 basedir=$PWD
 for f in NUDT7A-*_apo.pdb
