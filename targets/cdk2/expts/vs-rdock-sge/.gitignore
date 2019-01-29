@@ -5,3 +5,5 @@ cdk2_ligprep.sdf.gz
 cdk2_rdock.mol2
 xtal-lig.sd
 singularity.*
+trace.txt
+report.html
