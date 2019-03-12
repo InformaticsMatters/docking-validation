@@ -137,7 +137,7 @@ This uses the SSH private key file and the known_hosts file described in the pre
 Change the values of the 2 environment variables if using different files. 
 
 ```
-docker run -it --rm -v $PWD:$PWD:Z -w $PWD -e SSH_KEY="$(cat id_rsa)" -e SERVER=myhost.com -e USERNAME=myuser -e KNOWN_HOSTS="$(cat known_hosts)" informaticsmatters/tej:latest ./docker-submit.sh rdock
+docker run -it --rm -v $PWD:$PWD:Z -w $PWD -e SSH_KEY="$(cat id_rsa)" -e SERVER=$SERVER -e USERNAME=$USERNAME -e KNOWN_HOSTS="$(cat known_hosts)" informaticsmatters/tej:latest ./docker-submit.sh rdock
 ```
 
 The `docker-submit.sh` script sets up the SSH environment and then calls the `tej-submit.sh` script used above.
