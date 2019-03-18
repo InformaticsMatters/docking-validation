@@ -7,6 +7,7 @@ if [ "$#" -ne 1 ]; then
   exit 1
 fi
 
+
 SERVER=${SERVER}
 SSH_KEY=$SSH_KEY
 KNOWN_HOSTS=$KNOWN_HOSTS
@@ -14,9 +15,10 @@ POLL_INTERVAL=${POLL_INTERVAL:-10}
 USERNAME=${USERNAME:-$USER}
 DESTINATION=${USERNAME}@${SERVER}
 DIR=$1
-OUTPUTS="output.metadata output.data.gz output_metrics.txt report.html trace.txt"
 
 echo "Submiting job from $DIR"
+
+cp start.sh $DIR
 
 # start job
 echo "Submitting Tej job using $DESTINATION ..."
@@ -39,11 +41,13 @@ echo "Job finished. Status: $STATUS"
 if [ "$STATUS" == "finished 0" ]; then
   echo "Downloading results ..."
   cd $DIR
-  tej download $DESTINATION --id $JOB $OUTPUTS
+  tej download $DESTINATION --id $JOB results
   echo "Results downloaded"
   echo "Deleting job ..."
   tej delete $DESTINATION --id $JOB
   echo "Job $JOB deleted"
+  mv results/* .
+  rm -rf results
 else
   echo "Job did not complete successfully. Job is not deleted so this can be investigated."
 fi

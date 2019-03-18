@@ -77,13 +77,14 @@ singularity {
 ### Execute from a shell
 
 Run this with the `tej-submit.sh` script. Two environment variables must be set, `USERNAME` and `SERVER` which
-specify the remove execution server and the user. The SSH keys must have been set up for that user.
+specify the remove execution server and the user. The SSH keys must have been set up for that user. These can
+be defined in a `setenv.sh` script (excluded from GIT) that can be 'sourced'.
 
 ```
 $ ./tej-submit.sh rdock
 Submiting job from rdock
-Submitting Tej job using gse84885@130.246.215.45 ...
-Started Tej job rdock_gse84885_b7bf4gyku7
+Submitting Tej job using username@130.246.215.45 ...
+Started Tej job rdock_username_b7bf4gyku7
 Status: running
 Status: running
 Status: running
@@ -112,7 +113,7 @@ Job finished. Status: finished 0
 Downloading results ...
 Results downloaded
 Deleting job ...
-Job rdock_gse84885_b7bf4gyku7 deleted
+Job rdock_username_b7bf4gyku7 deleted
 ```
 
 You will see that the job is started, waits until it is finished, downloads the results and then deletes
@@ -126,9 +127,11 @@ environment that will be run when these workflows are executed as Squonk service
 
 ### Docker image
 
-An image for executing tej can be found on [Docker Hub](https://cloud.docker.com/u/informaticsmatters/repository/docker/informaticsmatters/tej). You can pull it with:
+An image for executing tej can be found on
+[Docker Hub](https://cloud.docker.com/u/informaticsmatters/repository/docker/informaticsmatters/tej).
+You can pull it with:
 ```
-docker pull informaticsmatters/tej
+docker pull informaticsmatters/tej:latest
 ```
 
 ### Execute in container
@@ -144,7 +147,7 @@ The `docker-submit.sh` script sets up the SSH environment and then calls the `te
 
 You probably need to change:
 
-* The USERNAME and SERVER environment variables
+* The USERNAME and SERVER environment variables (e.g.in  the `setenv.sh` script)
 * The workflow to execute (the last argument)
 
 The workfloww directory needs to have permissions to allow the container user to write files to it.
@@ -152,9 +155,9 @@ The workfloww directory needs to have permissions to allow the container user to
 ## Limitations
 
 1. tej's ability to copy result files seems to be quite limited (no support for wildcards etc.).
-We are still working out how best to handle this in a generic manner.
-1. error handling is not much tested yet. If the Nextflow workflow fails tej does not recognise this as 
-having failed and tried to download non-existing results. We plan to improve this.
+We work around this by writing all result files to a `results` directory so that tej can copy the entire
+directory, and then the `tej-submit.sh` copies those indivual result file back up to the workflow dir.
+1. error handling is not much tested yet. The tej project is not deleted when errors occur so you can look into this.
 1. If the singularity container is not already present then Singularity must be installed on the head node.
 This may not be the case (e.g. in  SGE environment) so you might need to make sure that all the containers are
 pre-pulled.

@@ -4,24 +4,19 @@
 */
 
 params.ligands = 'ligands.data.gz'
-params.protein = 'receptor.mol2'
-params.prmfile = 'receptor.prm'
-params.asfile =  'receptor.as'
-params.chunk = 25
+params.configzip = 'config.zip'
+params.chunk = 5
 params.limit = 0
 params.digits = 4
-params.num_dockings = 100
+params.num_dockings = 20
 params.top = 5
 params.score = null
 params.nscore = null
 
-prmfile = file(params.prmfile)
 ligands = file(params.ligands)
-protein = file(params.protein)
-asfile  = file(params.asfile)
+configzip = file(params.configzip)
 
-/* Splits the input SD file into multiple files of ${params.chunk} records.
-* Each file is sent individually to the ligand_parts channel
+/* Each file is sent individually to the ligand_parts channel
 */
 process sdsplit {
 
@@ -53,15 +48,14 @@ process rdock {
 
     input:
     file part from ligand_parts
-    file protein
-    file prmfile
-    file asfile
+    file configzip
 
     output:
     file 'docked_part*.sd' into docked_parts
 
     """
-    rbdock -i $part -r $prmfile -p dock.prm -n $params.num_dockings -o ${part.name.replace('ligands', 'docked')[0..-5]} > docked_out.log
+    unzip $configzip
+    rbdock -i $part -r receptor.prm -p dock.prm -n $params.num_dockings -o ${part.name.replace('ligands', 'docked')[0..-5]} > docked_out.log
     """
 }
 
@@ -70,8 +64,6 @@ process rdock {
 process results {
 
     container 'informaticsmatters/rdock-mini:latest'
-
-    publishDir baseDir, mode: 'link'
 
     input:
     file parts from docked_parts.collect()
@@ -96,7 +88,7 @@ process metrics {
 
     container 'informaticsmatters/rdkit-pipelines-centos:latest'
 
-    publishDir baseDir, mode: 'link'
+    publishDir "$baseDir/results", mode: 'symlink'
 
     input:
     file results
