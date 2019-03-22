@@ -16,6 +16,11 @@ params.nscore = null
 ligands = file(params.ligands)
 configzip = file(params.configzip)
 
+// Create the log file and write something to it as soon as we can.
+// The file is located in the workflow directory.
+File logfile = new File('status.log')
+logfile << 'MSG Workflow started\n'
+
 /* Each file is sent individually to the ligand_parts channel
 */
 process sdsplit {
@@ -31,6 +36,7 @@ process sdsplit {
     output:
     file 'ligands_part*.sdf' into ligand_parts mode flatten
     file 'ligands_part_metrics.txt' into splitter_metrics
+    val 'MSG Split completed\n' into receiver1
     
     """
     python -m pipelines_utils_rdkit.filter -i $ligands -if json -c $params.chunk -l $params.limit -d $params.digits -o ligands_part -of sdf --no-gzip --meta
@@ -52,10 +58,13 @@ process rdock {
 
     output:
     file 'docked_part*.sd' into docked_parts
+    file 'counts' into receiver2
 
     """
     unzip $configzip
     rbdock -i $part -r receptor.prm -p dock.prm -n $params.num_dockings -o ${part.name.replace('ligands', 'docked')[0..-5]} > docked_out.log
+    echo -n 'COUNT ' > counts
+    fgrep -c '\$\$\$\$' $part >> counts
     """
 }
 
@@ -70,6 +79,7 @@ process results {
 
     output:
     file 'results.sdf' into results
+    val 'MSG Results generated\n' into receiver3
 
     shell:
     '''
@@ -98,6 +108,7 @@ process metrics {
     file 'output.data.gz'
     file 'output.metadata'
     file 'output_metrics.txt'
+    val 'MSG Metrics generated\n' into receiver4
 
     """
     python -m pipelines_utils_rdkit.filter -i results.sdf -of json -o output --meta
@@ -108,4 +119,11 @@ process metrics {
     """
 }
 
-
+receiver1.mix(receiver2, receiver3, receiver4)
+    .subscribe {
+        if (it instanceof java.nio.file.Path) {
+            logfile << it.text
+        } else {
+            logfile << it
+        }
+    }

@@ -43,9 +43,9 @@ if [ "$STATUS" == "finished 0" ]; then
   cd $DIR
   tej download $DESTINATION --id $JOB results
   echo "Results downloaded"
-  echo "Deleting job ..."
-  tej delete $DESTINATION --id $JOB
-  echo "Job $JOB deleted"
+  #echo "Deleting job ..."
+  #tej delete $DESTINATION --id $JOB
+  #echo "Job $JOB deleted"
   mv results/* .
   rm -rf results
 else
