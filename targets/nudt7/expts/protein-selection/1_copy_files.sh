@@ -15,7 +15,8 @@ ligands=ligands.sdf
 rm -f $ligands
 for f in *.mol
 do
-    cat $f >> $ligands
+    echo ${f%.*} >> $ligands
+    tail -n +2 $f >> $ligands
     echo '$$$$' >> $ligands
 done
 echo "$ligands created"
