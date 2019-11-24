@@ -12,7 +12,7 @@ params.chunk = 5
 params.limit = 0
 params.num_dockings = 25
 params.top = 1
-params.threshold = 0.5
+params.threshold = 0.0
 params.field = 'SCORE.norm'
 
 prmfile = file(params.prmfile)
@@ -83,7 +83,9 @@ process vscreening {
 }
 
 
-/* Filter, combine and publish the results
+/* Filter, combine and publish the results.
+* Poses are only included if they are within ${params.threshold} of the best score obtained from docking the
+* target ligand into the same receptor (output of the dock_ligand process).
 */
 process results {
 
@@ -102,6 +104,6 @@ process results {
 	FSCORE=\$(sdreport -nh -t${params.field} best_ligand.sdf | cut -f 2 | awk '{\$1=\$1};1')
 	ASCORE=\$(awk "BEGIN {print \$FSCORE + ${params.threshold}}")
 	echo "Processing $parts with normalised score filter of \$ASCORE"
-	sdsort -n -s -fSCORE docked_part*.sd | sdfilter -f'\$${params.field} < \$ASCORE' | sdfilter -f'\$_COUNT <= ${params.top}' | gzip > rdock_results.sdf.gz
+	sdsort -n -s -f${params.field} docked_part*.sd | sdfilter -f"\\\$${params.field} < \$ASCORE" | sdfilter -f'\$_COUNT <= ${params.top}' | gzip > rdock_results.sdf.gz
 	"""
 }
