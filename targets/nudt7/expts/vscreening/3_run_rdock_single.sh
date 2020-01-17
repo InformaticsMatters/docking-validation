@@ -5,6 +5,6 @@
 basedir=$PWD
 basename=NUDT7A-x0129
 cd $basename
-nextflow -c ../nextflow.config run ../rdock.nf -with-docker
+nextflow -c ../nextflow.config run ../rdock.nf -with-docker $@
 cd $basedir
 

@@ -8,6 +8,6 @@ do
 	echo "Processing $f ..."
 	basename="${f%_apo.*}"
 	cd $basename
-    nextflow -c ../nextflow.config run ../rdock.nf -with-docker
+    nextflow -c ../nextflow.config run ../rdock.nf -with-docker $@
     cd $basedir
 done

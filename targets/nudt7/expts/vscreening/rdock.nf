@@ -4,7 +4,7 @@
 */
 
 params.ligand = 'ligand.mol'
-params.ligands = '../ligands.sdf.gz'
+params.ligands = '../ligands-5.sdf.gz'
 params.protein = 'receptor.mol2'
 params.prmfile = 'docking.prm'
 params.asfile =  'docking.as'
