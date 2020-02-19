@@ -6,6 +6,6 @@ for path in work/NUDT7A-*
 do
 	echo "Processing $path ..."
 	cd $path
-    nextflow -c ../../nextflow.config run ../../rdock.nf -with-docker $@
+    nextflow -c ../../nextflow.config run ../../main.nf -with-docker $@
     cd $basedir
 done

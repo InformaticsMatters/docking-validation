@@ -14,6 +14,7 @@ params.top = 10
 params.field = 'SCORE.norm'
 params.mock = false
 
+
 prmfile = file(params.prmfile)
 ligands = file(params.ligands)
 protein = file(params.protein)
@@ -84,6 +85,7 @@ process collect_poses {
 process score_poses {
 
     container 'informaticsmatters/jackall:latest'
+    containerOptions params.mock ? '' : '--gpus all'
 
     publishDir './', mode: 'copy'
 
