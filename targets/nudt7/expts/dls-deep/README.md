@@ -38,6 +38,10 @@ and creates a `<dir>/gninatypes/input.types` file that defines the inputs for th
 ./3_execute.sh 
 ```
 This runs the deep learning and generates the `<dir>/output/predictions.txt` results file.
-A GPU enabled Docker environment is needed for this step.
+An example results file can be seen [here](results/predictions.txt).
+
+**Important:** A GPU enabled Docker environment is needed for this step.
+
+---
 
 **Note:** This workflow is in the very early stages of development.

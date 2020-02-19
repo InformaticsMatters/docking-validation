@@ -22,7 +22,7 @@ do
     echo "Writing input definition file for $d ..."
     for f in gninatypes/ligands/ligand*.gninatypes
     do
-        echo "1 gninatypes/protein/${d}.gninatypes $f" >> gninatypes/input.types
+        echo "1 work/gninatypes/protein/${d}.gninatypes work/${f}" >> gninatypes/input.types
     done
     cd $basedir
 done
