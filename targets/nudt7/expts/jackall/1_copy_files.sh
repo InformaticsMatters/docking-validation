@@ -23,7 +23,12 @@ cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0254/NUDT7A-*.mol xray/NUDT7A-x0254/
 cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0384/NUDT7A-*.mol xray/NUDT7A-x0384/ligand.mol
 cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0389/NUDT7A-*.mol xray/NUDT7A-x0389/ligand.mol
 
-
+rm -f hits.sdf
+for f in xray/*/ligand.mol
+do
+    cat $f >> hits.sdf
+    echo '$$$$' >> hits.sdf
+done
 
 echo "Files copied. Files are:"
 ls xray/*/*

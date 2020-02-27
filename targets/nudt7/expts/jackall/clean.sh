@@ -1,5 +1,5 @@
 #!/bin/bash
 
 
-rm -rf xray work
+rm -rf xray work hits.sdf
 
