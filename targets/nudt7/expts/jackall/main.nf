@@ -67,7 +67,7 @@ process collect_poses {
 
 	container 'informaticsmatters/rdock-mini:latest'
 
-	publishDir 'work', mode: 'copy'
+	publishDir '.', mode: 'copy'
 
 	input:
 	file parts from docked_parts.collect()
@@ -88,7 +88,7 @@ process score_poses {
     container 'informaticsmatters/jackall:latest'
     containerOptions params.mock ? '' : '--gpus all'
 
-    publishDir 'work', mode: 'copy'
+    publishDir '.', mode: 'copy'
 
     input:
     file poses
@@ -113,7 +113,7 @@ process rank_scores {
 
     container 'informaticsmatters/rdock-mini:latest'
 
-    publishDir 'work', mode: 'copy'
+    publishDir '.', mode: 'copy'
 
     input:
     file scored_poses
