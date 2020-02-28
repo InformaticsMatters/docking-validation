@@ -32,10 +32,10 @@ process sdsplit {
     file ligands
 
     output:
-    file 'ligands_part*.sdf' into ligand_parts mode flatten
+    file '*_part_*.sdf' into ligand_parts mode flatten
     
     """
-    python -m pipelines_utils_rdkit.filter -i $ligands -if sdf -c $params.chunk -l $params.limit -d 4 -o ligands_part -of sdf --no-gzip
+    python -m pipelines_utils_rdkit.filter -i $ligands -if sdf -c $params.chunk -l $params.limit -d 4 -o ${ligands.name[0..-5]}_part_ -of sdf --no-gzip
     """
 }
 
@@ -53,10 +53,10 @@ process pose_generation {
     file asfile
 	
     output:
-    file 'docked_part*.sd' into docked_parts
+    file '*_part_docked*.sd' into docked_parts
     
     """
-    rbdock -i $part -r $prmfile -p dock.prm -n $params.num_dockings -o ${part.name.replace('ligands', 'docked')[0..-5]} > docked_out.log
+    rbdock -i $part -r $prmfile -p dock.prm -n $params.num_dockings -o ${part.name.replace('_part_', '_part_docked')[0..-5]} > docked_out.log
     """
 }
 
@@ -67,7 +67,7 @@ process collect_poses {
 
 	container 'informaticsmatters/rdock-mini:latest'
 
-	publishDir './', mode: 'copy'
+	publishDir 'work', mode: 'copy'
 
 	input:
 	file parts from docked_parts.collect()
@@ -76,7 +76,7 @@ process collect_poses {
 	file 'poses.sdf' into poses
 
 	"""
-	sdsort -n -s -f${params.field} docked_part*.sd | sdfilter -f'\$_COUNT <= ${params.top}' > poses.sdf
+	sdsort -n -s -f${params.field} $parts | sdfilter -f'\$_COUNT <= ${params.top}' > poses.sdf
 	"""
 }
 
@@ -88,7 +88,7 @@ process score_poses {
     container 'informaticsmatters/jackall:latest'
     containerOptions params.mock ? '' : '--gpus all'
 
-    publishDir './', mode: 'copy'
+    publishDir 'work', mode: 'copy'
 
     input:
     file poses
@@ -101,7 +101,7 @@ process score_poses {
     """
     base=\$PWD
     cd /train/fragalysis_test_files/
-    python xchem_deep_score.py -i \$base/poses.sdf -r \$base/receptor.mol2 -w /tmp
+    python xchem_deep_score.py -i \$base/poses.sdf -r \$base/receptor.mol2 -w /tmp ${params.mock ? '--mock' : ''}
     mv /tmp/output.sdf \$base/scored.sdf
     """
 
@@ -113,7 +113,7 @@ process rank_scores {
 
     container 'informaticsmatters/rdock-mini:latest'
 
-    publishDir './', mode: 'copy'
+    publishDir 'work', mode: 'copy'
 
     input:
     file scored_poses

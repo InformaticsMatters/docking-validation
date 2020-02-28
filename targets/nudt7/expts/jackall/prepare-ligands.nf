@@ -22,7 +22,7 @@ process prepare_smiles {
 
     container 'informaticsmatters/obabel:3.0.0'
 
-    publishDir 'work'
+    publishDir 'work', mode: 'copy'
 
     input:
     file chunks
