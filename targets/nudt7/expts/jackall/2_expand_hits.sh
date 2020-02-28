@@ -17,8 +17,10 @@ token=$(curl -d "grant_type=password" -d "client_id=fragnet-search" -d "username
   https://squonk.it/auth/realms/squonk/protocol/openid-connect/token 2> /dev/null \
   | jq -r '.access_token')
 
-echo "Expanding hits"
+echo "Expanding hits"history
 curl -kL -H "Authorization: bearer $token" -H "Content-Type: chemical/x-mdl-sdfile" --data-binary "@hits.sdf" "https://fragnet-staging.informaticsmatters.org/fragnet-search/rest/v2/search/expand-multi?hac=5&rac=2&hops=2" > expanded.json
 
 
 jq -r .results[].smiles expanded.json > expanded.smi
+
+# obabel expanded.smi -o sdf -O expanded.sdf -p 7.4 --gen3D

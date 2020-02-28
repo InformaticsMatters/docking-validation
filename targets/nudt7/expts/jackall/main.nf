@@ -3,11 +3,11 @@
 /* Example Nextflow pipeline that runs Docking using rDock
 */
 
-params.ligands = '../../ligands-5.sdf'
+params.ligands = '../chunk_*.sdf'
 params.protein = 'receptor.mol2'
 params.prmfile = 'docking.prm'
 params.asfile =  'docking.as'
-params.chunk = 5
+params.chunk = 25
 params.limit = 0
 params.num_dockings = 25
 params.top = 10
@@ -20,7 +20,8 @@ ligands = file(params.ligands)
 protein = file(params.protein)
 asfile  = file(params.asfile)
 
-/* Splits the input SD file into multiple files of ${params.chunk} records.
+
+/* Splits the input SD file into multiple files of ${params.chunk_docking} records.
 * Each file is sent individually to the ligand_parts channel
 */
 process sdsplit {
