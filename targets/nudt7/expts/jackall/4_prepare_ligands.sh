@@ -1,4 +1,4 @@
 #!/bin/bash
 
 
-nextflow run prepare-ligands.nf
+nextflow run prepare-ligands.nf $@
