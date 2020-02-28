@@ -99,8 +99,10 @@ process score_poses {
 
 
     """
-    python /root/train/fragalysis_test_files/xchem_deep_score.py -i $poses -r $protein -w /tmp ${params.mock ? '--mock' : ''}
-    mv /tmp/output.sdf scored.sdf
+    base=\$PWD
+    cd /train/fragalysis_test_files/
+    python xchem_deep_score.py -i \$base/poses.sdf -r \$base/receptor.mol2 -w /tmp
+    mv /tmp/output.sdf \$base/scored.sdf
     """
 
 }
