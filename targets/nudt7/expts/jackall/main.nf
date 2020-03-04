@@ -5,8 +5,8 @@
 
 params.ligands = '../chunk_*.sdf'
 params.protein = 'receptor.mol2'
-params.prmfile = 'docking.prm'
-params.asfile =  'docking.as'
+params.prmfile = 'docking-local.prm'
+params.asfile =  'docking-local.as'
 params.chunk = 25
 params.limit = 0
 params.num_dockings = 25
