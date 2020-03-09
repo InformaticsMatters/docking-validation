@@ -18,19 +18,34 @@ process split_smiles {
     """
 }
 
-process prepare_smiles {
+process enumerate_charges {
+
+    container 'informaticsmatters/rdkit_pipelines:latest'
+
+    input:
+    file chunks
+
+    output:
+    file 'enumerated_*' into enumerated_charges mode flatten
+
+    """
+    python -m pipelines.dimorphite.dimorphite_dl --smiles_file $chunks --output_file enumerated_${chunks}
+    """
+}
+
+process prepare_3d {
 
     container 'informaticsmatters/obabel:3.0.0'
 
     publishDir 'work', mode: 'copy'
 
     input:
-    file chunks
+    file enumerated_charges
 
     output:
-    file 'chunk_*.sdf' into sdfs mode flatten
+    file 'enumerated_chunk_*.sdf' into sdfs mode flatten
 
     """
-    obabel $chunks -i smi -o sdf -O ${chunks}.sdf -p 7.4 --gen3D
+    obabel $enumerated_charges -i smi -o sdf -O ${enumerated_charges}.sdf --gen3D
     """
 }
