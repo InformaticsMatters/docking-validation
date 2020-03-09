@@ -26,7 +26,9 @@ cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0389/NUDT7A-*.mol xray/NUDT7A-x0389/
 rm -f hits.sdf
 for f in xray/*/ligand.mol
 do
-    cat $f >> hits.sdf
+    dir=$(echo $f | cut -d '/' -f2)
+    echo $dir >> hits.sdf
+    tail -n +2 $f >> hits.sdf
     echo '$$$$' >> hits.sdf
 done
 
