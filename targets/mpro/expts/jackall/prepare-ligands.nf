@@ -1,6 +1,8 @@
 
 params.candidates = 'expanded.smi'
 params.chunk = 1000
+params.min_ph = 6.4
+params.max_ph = 8.4
 
 candidates = file(params.candidates)
 
@@ -29,7 +31,8 @@ process enumerate_charges {
     file 'enumerated_*' into enumerated_charges mode flatten
 
     """
-    python -m pipelines.dimorphite.dimorphite_dl --smiles_file $chunks --output_file enumerated_${chunks}
+    python -m pipelines.dimorphite.dimorphite_dl --smiles_file $chunks --output_file enumerated_${chunks}\
+      --min_ph ${params.min_ph} --max_ph ${params.max_ph}
     """
 }
 

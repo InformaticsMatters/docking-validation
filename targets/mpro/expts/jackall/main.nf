@@ -3,7 +3,7 @@
 /* Nextflow pipeline that runs Docking using rDock and scores ligands using TransFS and SuCOS
 */
 
-params.ligands = '../chunk_*.sdf'
+params.ligands = '../enumerated_chunk_*.sdf'
 params.hits = '../../hits.sdf'
 params.protein = 'receptor.mol2'
 params.prmfile = 'docking-local.prm'
