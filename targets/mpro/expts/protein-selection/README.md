@@ -2,7 +2,7 @@
 
 ## Introduction
 
-The methodology used here is described in more detail [here](../../nudt7/expts/pretein-selection/README.md).
+The methodology used here is described in more detail [here](../../../nudt7/expts/pretein-selection/README.md).
 
 ## Dataset
 
