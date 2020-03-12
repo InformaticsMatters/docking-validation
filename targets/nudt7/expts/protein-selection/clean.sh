@@ -11,4 +11,5 @@ rm -f *.mol
 rm -f *.ngl
 rm -f ligands_frankenstein.sdf
 rm -f ligands.sdf
+rm -f select_points_SDF.pl
 

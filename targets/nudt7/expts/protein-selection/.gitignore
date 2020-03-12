@@ -8,4 +8,5 @@ NUDT7A-x0389
 *.ngl
 ligands_frankenstein.sdf
 ligands.sdf
+select_points_SDF.pl
 
