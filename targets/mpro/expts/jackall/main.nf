@@ -5,13 +5,13 @@
 
 params.ligands = '../enumerated_chunk_*.sdf'
 params.hits = '../../hits.sdf'
-params.protein = 'receptor.mol2'
+params.protein_pdb = 'receptor.pdb'
+params.protein_mol2 = 'receptor.mol2'
 params.prmfile = 'docking-local.prm'
 params.asfile =  'docking-local.as'
 params.chunk = 25
 params.limit = 0
 params.num_dockings = 25
-params.top = 10
 params.field = 'SCORE.norm'
 params.mock = false
 
@@ -19,7 +19,8 @@ params.mock = false
 prmfile = file(params.prmfile)
 ligands = file(params.ligands)
 hits = file(params.hits)
-protein = file(params.protein)
+protein_pdb = file(params.protein_pdb)
+protein_mol2 = file(params.protein_mol2)
 asfile  = file(params.asfile)
 
 
@@ -50,7 +51,7 @@ process pose_generation {
 
     input:
     file part from ligand_parts
-    file protein
+    file protein_mol2
     file prmfile
     file asfile
 
@@ -62,8 +63,7 @@ process pose_generation {
     """
 }
 
-/* Collects the docked poses and sorts them according to the docking score (the field param) and takes the
-* best n (the top param).
+/* Collects the docked poses and sorts them according to the docking score (the field param)
 */
 process collect_poses {
 
@@ -78,7 +78,7 @@ process collect_poses {
 	file 'poses.sdf' into poses
 
 	"""
-	sdsort -n -s -f${params.field} $parts | sdfilter -f'\$_COUNT <= ${params.top}' > poses.sdf
+	sdsort -n -s -f${params.field} $parts > poses.sdf
 	"""
 }
 
@@ -87,14 +87,14 @@ process collect_poses {
 */
 process score_transfs {
 
-    container 'informaticsmatters/jackall:latest'
+    container 'informaticsmatters/transfs:latest'
     containerOptions params.mock ? '' : '--gpus all'
 
     //publishDir '.', mode: 'copy'
 
     input:
     file poses
-    file protein
+    file protein_pdb
 
     output:
     file 'scored_transfs.sdf' into scored_transfs
@@ -103,7 +103,7 @@ process score_transfs {
     """
     base=\$PWD
     cd /train/fragalysis_test_files/
-    python xchem_deep_score.py -i \$base/poses.sdf -r \$base/receptor.mol2 -w /tmp ${params.mock ? '--mock' : ''}
+    python transfs.py -i \$base/$poses -r \$base/$protein_pdb -w /tmp ${params.mock ? '--mock' : ''}
     mv /tmp/output.sdf \$base/scored_transfs.sdf
     """
 }
