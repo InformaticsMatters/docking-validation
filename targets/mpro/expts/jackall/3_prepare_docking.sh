@@ -16,6 +16,7 @@ do
 	if [ ! -d $path ]; then mkdir -p $path; fi
 	cp $f/ligand.mol $path
 	cp hits_frankenstein.sdf $path
+	cp $f/receptor-solv.pdb $path/receptor.pdb
 	sed "s/@@BASENAME@@/$dir/g" frankenstein.prm > $path/docking-global.prm
 	sed "s/@@BASENAME@@/$dir/g" template.prm > $path/docking-local.prm
 	echo "Creating ${basename}.mol2"

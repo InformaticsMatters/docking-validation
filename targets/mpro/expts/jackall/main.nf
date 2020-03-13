@@ -90,7 +90,7 @@ process score_transfs {
     container 'informaticsmatters/transfs:latest'
     containerOptions params.mock ? '' : '--gpus all'
 
-    //publishDir '.', mode: 'copy'
+    publishDir '.', mode: 'copy', pattern: "*.pdb.tgz"
 
     input:
     file poses
@@ -98,13 +98,15 @@ process score_transfs {
 
     output:
     file 'scored_transfs.sdf' into scored_transfs
+    file "${poses}-receptors.pdb.tgz"
 
 
     """
     base=\$PWD
     cd /train/fragalysis_test_files/
-    python transfs.py -i \$base/$poses -r \$base/$protein_pdb -w /tmp ${params.mock ? '--mock' : ''}
-    mv /tmp/output.sdf \$base/scored_transfs.sdf
+    python transfs.py -i \$base/$poses -r \$base/$protein_pdb -w /tmp/work ${params.mock ? '--mock' : ''}
+    mv /tmp/work/output.sdf \$base/scored_transfs.sdf
+    tar cvfz \$base/${poses}-receptors.pdb.tgz /tmp/work/*/receptor.pdb
     """
 }
 
