@@ -14,6 +14,7 @@ params.limit = 0
 params.num_dockings = 25
 params.field = 'SCORE.norm'
 params.mock = false
+params.distance = 2.0
 
 
 prmfile = file(params.prmfile)
@@ -104,7 +105,7 @@ process score_transfs {
     """
     base=\$PWD
     cd /train/fragalysis_test_files/
-    python transfs.py -i \$base/$poses -r \$base/$protein_pdb -w /tmp/work ${params.mock ? '--mock' : ''}
+    python transfs.py -i \$base/$poses -r \$base/$protein_pdb -d $params.distance -w /tmp/work ${params.mock ? '--mock' : ''}
     mv /tmp/work/output.sdf \$base/scored_transfs.sdf
     tar cvfz \$base/${poses}-receptors.pdb.tgz /tmp/work/*/receptor.pdb
     """
