@@ -107,7 +107,7 @@ process score_transfs {
     cd /train/fragalysis_test_files/
     python transfs.py -i \$base/$poses -r \$base/$protein_pdb -d $params.distance -w /tmp/work ${params.mock ? '--mock' : ''}
     mv /tmp/work/output.sdf \$base/scored_transfs.sdf
-    tar cvfz \$base/${poses}-receptors.pdb.tgz /tmp/work/*/receptor.pdb
+    tar cvfz \$base/${poses}-receptors.pdb.tgz /tmp/work/*.pdb
     """
 }
 
