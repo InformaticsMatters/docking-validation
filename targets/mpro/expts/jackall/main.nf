@@ -9,12 +9,13 @@ params.protein_pdb = 'receptor.pdb'
 params.protein_mol2 = 'receptor.mol2'
 params.prmfile = 'docking-local.prm'
 params.asfile =  'docking-local.as'
-params.chunk = 25
+params.rdock_chunk = 25
 params.limit = 0
 params.num_dockings = 25
 params.field = 'SCORE.norm'
 params.mock = false
 params.distance = 2.0
+params.transfs_chunk = 100000
 
 
 prmfile = file(params.prmfile)
@@ -39,7 +40,7 @@ process sdsplit {
     file '*_part_*.sdf' into ligand_parts mode flatten
 
     """
-    python -m pipelines_utils_rdkit.filter -i $ligands -if sdf -c $params.chunk -l $params.limit -d 4 -o ${ligands.name[0..-5]}_part_ -of sdf --no-gzip
+    python -m pipelines_utils_rdkit.filter -i $ligands -if sdf -c $params.rdock_chunk -l $params.limit -d 4 -o ${ligands.name[0..-5]}_part_ -of sdf --no-gzip
     """
 }
 
@@ -49,6 +50,8 @@ process sdsplit {
 process pose_generation {
 
     container 'informaticsmatters/rdock-mini:latest'
+    errorStrategy 'retry'
+    maxRetries 3
 
     input:
     file part from ligand_parts
@@ -76,10 +79,10 @@ process collect_poses {
 	file parts from docked_parts.collect()
 
 	output:
-	file 'poses.sdf' into poses
+	file 'tfs_in_*.sd' into poses mode flatten
 
 	"""
-	sdsort -n -s -f${params.field} $parts > poses.sdf
+	sdsort -n -s -f${params.field} $parts | sdsplit -${params.transfs_chunk} -otfs_in_${parts}
 	"""
 }
 
@@ -90,6 +93,7 @@ process score_transfs {
 
     container 'informaticsmatters/transfs:latest'
     containerOptions params.mock ? '' : '--gpus all'
+    maxForks 1
 
     publishDir '.', mode: 'copy', pattern: "*.pdb.tgz"
 
@@ -98,7 +102,7 @@ process score_transfs {
     file protein_pdb
 
     output:
-    file 'scored_transfs.sdf' into scored_transfs
+    file 'scored_tfs_*.sd' into scored_transfs
     file "${poses}-receptors.pdb.tgz"
 
 
@@ -106,7 +110,7 @@ process score_transfs {
     base=\$PWD
     cd /train/fragalysis_test_files/
     python transfs.py -i \$base/$poses -r \$base/$protein_pdb -d $params.distance -w /tmp/work ${params.mock ? '--mock' : ''}
-    mv /tmp/work/output.sdf \$base/scored_transfs.sdf
+    mv /tmp/work/output.sdf \$base/scored_tfs_${poses}
     tar cvfz \$base/${poses}-receptors.pdb.tgz /tmp/work/*.pdb
     """
 }
@@ -118,13 +122,13 @@ process rank_transfs {
     container 'informaticsmatters/rdock-mini:latest'
 
     input:
-    file scored_transfs
+    file parts from scored_transfs.collect()
 
     output:
     file 'ranked_transfs.sdf' into ranked_transfs
 
     """
-    sdsort -n -r -s -fXChemDeepScore $scored_transfs | sdfilter -f'\$_COUNT <= 1' | sdsort -n -r -fXChemDeepScore > ranked_transfs.sdf
+    sdsort -n -r -s -fXChemDeepScore $parts | sdfilter -f'\$_COUNT <= 1' | sdsort -n -r -fXChemDeepScore > ranked_transfs.sdf
     """
 }
 

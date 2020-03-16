@@ -158,6 +158,8 @@ def write_inputs(protein_file, ligands_file, distance):
 
     types_path = os.path.sep.join([work_dir, types_file_name])
     log("Writing types to", types_path)
+    num_proteins = 0
+    num_ligands = 0
     with open(types_path, 'w') as types_file:
 
         for path in paths:
@@ -187,9 +189,6 @@ def write_inputs(protein_file, ligands_file, distance):
             if exit_code:
                 raise Exception("Failed to write proteins")
             protein_gninatypes = os.listdir(os.path.sep.join([path, 'proteins']))
-
-            num_proteins = 0
-            num_ligands = 0
 
             for protein in protein_gninatypes:
                 num_proteins += 1
