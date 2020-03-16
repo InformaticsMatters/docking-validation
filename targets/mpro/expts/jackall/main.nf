@@ -9,7 +9,7 @@ params.protein_pdb = 'receptor.pdb'
 params.protein_mol2 = 'receptor.mol2'
 params.prmfile = 'docking-local.prm'
 params.asfile =  'docking-local.as'
-params.rdock_chunk = 25
+params.chunk = 25
 params.limit = 0
 params.num_dockings = 25
 params.field = 'SCORE.norm'
@@ -40,7 +40,7 @@ process sdsplit {
     file '*_part_*.sdf' into ligand_parts mode flatten
 
     """
-    python -m pipelines_utils_rdkit.filter -i $ligands -if sdf -c $params.rdock_chunk -l $params.limit -d 4 -o ${ligands.name[0..-5]}_part_ -of sdf --no-gzip
+    python -m pipelines_utils_rdkit.filter -i $ligands -if sdf -c $params.chunk -l $params.limit -d 4 -o ${ligands.name[0..-5]}_part_ -of sdf --no-gzip
     """
 }
 
@@ -128,7 +128,7 @@ process rank_transfs {
     file 'ranked_transfs.sdf' into ranked_transfs
 
     """
-    sdsort -n -r -s -fXChemDeepScore $parts | sdfilter -f'\$_COUNT <= 1' | sdsort -n -r -fXChemDeepScore > ranked_transfs.sdf
+    sdsort -n -r -s -fTransFSScore $parts | sdfilter -f'\$_COUNT <= 1' | sdsort -n -r -fTransFSScore > ranked_transfs.sdf
     """
 }
 
