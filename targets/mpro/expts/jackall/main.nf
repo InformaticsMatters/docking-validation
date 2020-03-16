@@ -16,6 +16,8 @@ params.field = 'SCORE.norm'
 params.mock = false
 params.distance = 2.0
 params.transfs_chunk = 100000
+params.num_gpus = 'all'
+params.max_forks = 1
 
 
 prmfile = file(params.prmfile)
@@ -92,8 +94,8 @@ process collect_poses {
 process score_transfs {
 
     container 'informaticsmatters/transfs:latest'
-    containerOptions params.mock ? '' : '--gpus all'
-    maxForks 1
+    containerOptions params.mock ? '' : "--gpus $params.num_gpus"
+    maxForks params.max_forks
 
     publishDir '.', mode: 'copy', pattern: "*.pdb.tgz"
 
