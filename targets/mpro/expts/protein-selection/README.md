@@ -336,6 +336,8 @@ The overall picture for the best RMSD scores looks like this (rows are ligands, 
 | Mpro-x1093_0 | 2.28 | 1.02 | 1.93 | 1.14 | 1.86 | 1.88 | 0.63 | 1.5 | 1.77 | 1.82 | 0.95 | 1.08 | 0.87 | 2.17 | 1.21 | 1.64 | 1.03
 | Mpro-x1249_0 | 3.69 | 3.65 | 4.32 | 3.96 | 3.89 | 3.87 | 3.24 | 2.89 | 3.79 | 3.5 | 3.49 | 3.69 | 3.16 | 4.4 | 4.03 | 2.42 | 3.84
 | SUM | 47.58 | 45.45 | 45.44 | 45.9 | 46.92 | 41.76 | 49.91 | 41.08 | 47.98 | 44.51 | 42.1 | 37.99 | 44.41 | 54.62 | 46.53 | 57.37 | 40.77
+| MIN | 0.65 | 0.93 | 0.89 | 0.67 | 0.76 | 0.64 | 0.63 | 0.65 | 0.74 | 0.88 | 0.88 | 0.64 | 0.67 | 0.64 | 0.69 | 1.35 | 0.69
+| MAX | 6.81 | 6.78 | 4.85 | 7.79 | 8 | 7.63 | 6.66 | 6.5 | 7.06 | 5.16 | 4.56 | 7.62 | 7.49 | 6.42 | 6.96 | 5.91 | 7.11
 
 
 
@@ -374,7 +376,13 @@ Clearly we need to generate a reasonably large number of poses and not rely on t
 Overall the Mpro-x0874_0 protein seems the best target to use as the sum of the RMSD scores is lowest, but with the poor
 performance scores for the Mpro-x0540_0 and Mpro-x0354_0 ligands, though other targets also struggle with these.
 
-So if you wanted to choose only one target to use you would select Mpro-x0874_0. More analysis is needed!
+Mpro-x0678_0 would also be a good choice as it also has a low sum score, a lower worse score and is better than Mpro-x0874_0
+for those two problem ligands. In reality you would probably choose more than one target, but this approach should allow
+to significantly reduce the number.
+
+More analysis is needed!
+
+An Excel sheet with the RMSD and rank scores is [here](rmsds.xlsx).
 
 
 
