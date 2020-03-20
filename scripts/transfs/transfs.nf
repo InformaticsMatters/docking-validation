@@ -5,7 +5,7 @@
 
 params.ligands = '../enumerated_chunk_*.sdf'
 params.hits = '../../hits.sdf'
-params.protein_pdb = 'receptor.pdb'
+params.protein_pdb = 'receptor.pdb' // transfs seems to needed the name to to be receptor.pdb
 params.protein_mol2 = 'receptor.mol2'
 params.prmfile = 'docking-local.prm'
 params.asfile =  'docking-local.as'
