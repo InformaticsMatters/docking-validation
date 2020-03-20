@@ -5,7 +5,7 @@
 
 params.ligands = '../enumerated_chunk_*.sdf'
 params.hits = '../../hits.sdf'
-params.protein_pdb = 'receptor-nosolv.pdb'
+params.protein_pdb = 'receptor.pdb'
 params.protein_mol2 = 'receptor.mol2'
 params.prmfile = 'docking-local.prm'
 params.asfile =  'docking-local.as'
