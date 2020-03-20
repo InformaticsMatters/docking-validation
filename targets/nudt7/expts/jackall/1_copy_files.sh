@@ -4,24 +4,20 @@ set -e
 
 echo "Copying files ..."
 
+cp ../../../../scripts/select_points_SDF.pl .
+
 if [ ! -d xray ]; then mkdir xray; fi
 
-for d in NUDT7A-x0129 NUDT7A-x0151 NUDT7A-x0254 NUDT7A-x0384 NUDT7A-x0389
+
+for p in ../../../../datasets/XChem/NUDT7/NUDT7A-x*
 do
+    d=$(echo $p | cut -d '/' -f8)
+    echo "Using dir $d"
 	if [ ! -d xray/$d ]; then mkdir xray/$d; fi
+	cp ../../../../datasets/XChem/NUDT7/$d/${d}_apo-desolv.pdb xray/$d/receptor.pdb
+	cp ../../../../datasets/XChem/NUDT7/$d/${d}_apo.pdb xray/$d/receptor-solv.pdb
+	cp ../../../../datasets/XChem/NUDT7/$d/${d}.mol xray/$d/ligand.mol
 done
-
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0129/NUDT7A-*_apo.pdb xray/NUDT7A-x0129/receptor.pdb
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0151/NUDT7A-*_apo.pdb xray/NUDT7A-x0151/receptor.pdb
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0254/NUDT7A-*_apo.pdb xray/NUDT7A-x0254/receptor.pdb
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0384/NUDT7A-*_apo.pdb xray/NUDT7A-x0384/receptor.pdb
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0389/NUDT7A-*_apo.pdb xray/NUDT7A-x0389/receptor.pdb
-
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0129/NUDT7A-*.mol xray/NUDT7A-x0129/ligand.mol
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0151/NUDT7A-*.mol xray/NUDT7A-x0151/ligand.mol
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0254/NUDT7A-*.mol xray/NUDT7A-x0254/ligand.mol
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0384/NUDT7A-*.mol xray/NUDT7A-x0384/ligand.mol
-cp ../../../../datasets/XChem/NUDT7/NUDT7A-x0389/NUDT7A-*.mol xray/NUDT7A-x0389/ligand.mol
 
 rm -f hits.sdf
 for f in xray/*/ligand.mol

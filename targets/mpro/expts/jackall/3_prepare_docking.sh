@@ -17,10 +17,11 @@ do
 	cp $f/ligand.mol $path
 	cp hits_frankenstein.sdf $path
 	cp $f/receptor-solv.pdb $path/receptor-solv.pdb
+	cp $f/receptor.pdb $path/receptor-nosolv.pdb
 	sed "s/@@BASENAME@@/$dir/g" frankenstein.prm > $path/docking-global.prm
 	sed "s/@@BASENAME@@/$dir/g" template.prm > $path/docking-local.prm
 	echo "Creating ${basename}.mol2"
-	docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/obabel:3.0.0 obabel xray/$dir/receptor-nosolv.pdb -O${path}/receptor.mol2
+	docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/obabel:3.0.0 obabel $f/receptor.pdb -O${path}/receptor.mol2
 	echo "Creating local cavity for $path"
 	docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/rdock-mini:latest sh -c "cd $path; rbcavity -was -d -r docking-local.prm > rbcavity-local.log"
     echo "Creating global cavity for $path"
