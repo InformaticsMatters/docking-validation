@@ -1,11 +1,14 @@
 # Protein selection for docking
 
+NOTE: this analysis replaces an earlier version where waters were present in the PDB files, which might be 
+expected to lead to misleading results.   
+
 ## Introduction
 
 Often you might have multiple crystal structures for a protein, each with different ligands present.
 This introduces an extra complexity when docking because you need to work out which one(s) are going
 to give you the best results. This is common in fragment screening where you might have multiple fragments
-crystalised into the same target protein. Those fragments may explore the extent of the cavity well, but
+crystallised into the same target protein. Those fragments may explore the extent of the cavity well, but
 if you are wanting to use docking to screen potential derivatives of those fragments then you need to 
 determine what protein structure(s) you are going to use.
 
@@ -41,8 +44,8 @@ Files are copied from the datasets section.
 $ ./1_copy_files.sh 
 Copying files ...
 Files copied. Files are:
-NUDT7A-x0129_apo.pdb  NUDT7A-x0151_apo.pdb  NUDT7A-x0254_apo.pdb  NUDT7A-x0384_apo.pdb	NUDT7A-x0389_apo.pdb
-NUDT7A-x0129.mol      NUDT7A-x0151.mol	    NUDT7A-x0254.mol	  NUDT7A-x0384.mol	NUDT7A-x0389.mol
+NUDT7A-x0129_apo-desolv.pdb  NUDT7A-x0129.mol             NUDT7A-x0151_apo.pdb  NUDT7A-x0254_apo-desolv.pdb  NUDT7A-x0254.mol             NUDT7A-x0384_apo.pdb  NUDT7A-x0389_apo-desolv.pdb  NUDT7A-x0389.mol
+NUDT7A-x0129_apo.pdb         NUDT7A-x0151_apo-desolv.pdb  NUDT7A-x0151.mol      NUDT7A-x0254_apo.pdb         NUDT7A-x0384_apo-desolv.pdb  NUDT7A-x0384.mol      NUDT7A-x0389_apo.pdb
 Creating SDF with all ligands ...
 ligands.sdf created
 Done
@@ -85,26 +88,19 @@ V2000
 V2000
 V2000
 V2000
-Processing NUDT7A-x0129_apo.pdb ...
+Processing NUDT7A-x0129_apo-desolv.pdb ...
 Creating NUDT7A-x0129.mol2
+==============================
+*** Open Babel Warning  in PerceiveBondOrders
+  Failed to kekulize aromatic bonds in OBMol::PerceiveBondOrders (title is NUDT7A-x0129_apo-desolv.pdb)
+
 1 molecule converted
 Creating cavity for NUDT7A-x0129
-Processing NUDT7A-x0151_apo.pdb ...
+Processing NUDT7A-x0151_apo-desolv.pdb ...
 Creating NUDT7A-x0151.mol2
-1 molecule converted
-Creating cavity for NUDT7A-x0151
-Processing NUDT7A-x0254_apo.pdb ...
-Creating NUDT7A-x0254.mol2
-1 molecule converted
-Creating cavity for NUDT7A-x0254
-Processing NUDT7A-x0384_apo.pdb ...
-Creating NUDT7A-x0384.mol2
-1 molecule converted
-Creating cavity for NUDT7A-x0384
-Processing NUDT7A-x0389_apo.pdb ...
-Creating NUDT7A-x0389.mol2
-1 molecule converted
-Creating cavity for NUDT7A-x0389
+
+...
+
 ```
 
 ### 3. Docking
@@ -125,36 +121,24 @@ Run this with the command:
 
 ## Results
 
-RMSD Scores are as follows
+Results were generated with 3 independent runs. The key values are captures in this Excel spreadsheet [rmsds.xlsx](rmsds.xlsx).
+The individual RMSD values are the lowest RMSD found amongst the poses compared to the original ligand. If the docking was
+perfect the RMSD would be zero. The spreadsheet also reports the rank of that best pose (out of the 50 poses generated). 
+The average RMSDs for the 3 runs are (rows are ligands, columns are proteins):
 
-| Target | Ligand | Rank | RMSD
-| --- | --- | --- | ---
-| NUDT7A-x0129 | NUDT7A-x0129 | 35 | 1.36
-| | NUDT7A-x0151 | 18 | 4.35
-| | NUDT7A-x0254 | 9 | 1.20
-| | NUDT7A-x0384 | 49 | 4.37
-| | NUDT7A-x0389 | 47 | 2.15
-| NUDT7A-x0151 | NUDT7A-x0129 | 30 | 6.92
-| | NUDT7A-x0151 | 49 | 1.00
-| | NUDT7A-x0254 | 50 | 7.56
-| | NUDT7A-x0384 | 45 | 6.28
-| | NUDT7A-x0389 | 3 | 7.06
-| NUDT7A-x0254 | NUDT7A-x0129 | 47 | 1.79
-| | NUDT7A-x0151 | 31 | 6.02
-| | NUDT7A-x0254 | 41 | 1.91
-| | NUDT7A-x0384 | 47 | 3.46
-| | NUDT7A-x0389 | 35 | 2.00
-| NUDT7A-x0384 | NUDT7A-x0129 | 15 | 5.69
-| | NUDT7A-x0151 | 46 | 4.46
-| | NUDT7A-x0254 | 46 | 4.51
-| | NUDT7A-x0384 | 20 | 1.18
-| | NUDT7A-x0389 | 21 | 6.34
-| NUDT7A-x0389 | NUDT7A-x0129 | 39 | 1.51
-| | NUDT7A-x0151 | 26 | 5.08
-| | NUDT7A-x0254 | 39 | 4.30
-| | NUDT7A-x0384 | 48 | 4.20
-| | NUDT7A-x0389 | 41 | 1.28
+|              | NUDT7A-x0129 | NUDT7A-x0151 | NUDT7A-x0254 | NUDT7A-x0384 | NUDT7A-x0389
+| ---          | ---          | ---          | ---          | ---          | ---          
+| NUDT7A-x0129 | 1.74	      | 4.25	     | 2.11  	    | 3.07	       | 1.44
+| NUDT7A-x0151 | 0.70	      | 1.36	     | 0.71	        | 1.63	       | 5.06
+| NUDT7A-x0254 | 4.17	      | 2.82	     | 3.28	        | 4.33	       | 3.57
+| NUDT7A-x0384 | 4.98	      | 1.82	     | 4.19	        | 1.46	       | 4.07
+| NUDT7A-x0389 | 6.64         | 4.65	     | 5.03	        | 5.21	       | 1.24
+| AVERAGE	   | 3.65	      | 2.98	     | 3.07         | 3.14	       | 3.08
+| MIN	       | 0.70	      | 1.36	     | 0.71	        | 1.46	       | 1.24
+| MAX	       | 6.64	      | 4.65	     | 5.03	        | 5.21	       | 5.06
 
+
+## Conclusions
 
 A number of interesting conclusions can be made.
 
@@ -162,65 +146,34 @@ Firstly rDock seems to be good at generating the correct pose, but very often th
 Very often the best RMSD is ranked quite lowly. We do need those 50 dockings to be sure of getting the possibility 
 of a good pose.
  
-This is seen for NUDT7A-x0389 where the ligand is consistently docked into the same space but two ways round, with the
-wrong way scoring significantly better than the right way. In the figure below the ball and stick representation is the 
-ligand in the crystal structure and the two licorice representation are the best scoring docking pose and the pose with 
-the best RMSD. The one with the best RMSD ranks 41st in the scoring list! The best scoring pose overlays very well but
-is the wrong way round. 
+This is seen for NUDT7A-x0389 where the ligand is consistently docked into the same space but two ways round.
 
 ![ligands in cavity](alignment.png)
 
-The overall picture for the best RMSD scores looks like this (rows are ligands, columns are proteins).
-
-| Best RMSD | NUDT7A-x0129 | NUDT7A-x0151 | NUDT7A-x0254 | NUDT7A-x0384 | NUDT7A-x0389
-| --- | --- | --- | --- | --- | ---
-| NUDT7A-x0129 | 1.36 | 6.92 | 1.79 | 5.69 | 1.51
-| NUDT7A-x0151 | 4.35 | 1.00 | 6.02 | 4.46 | 5.08
-| NUDT7A-x0254 | 1.20 | 7.56 | 1.91 | 4.51 | 4.30
-| NUDT7A-x0384 | 4.37 | 6.28 | 3.46 | 1.18 | 4.20
-| NUDT7A-x0389 | 2.15 | 7.06 | 2.00 | 6.34 | 1.28
-| SUM | 13.43 | 28.82 | 15.18 | 22.18 | 16.37
-
-The ranks look like this:
-
-| RMSD Rank | NUDT7A-x0129 | NUDT7A-x0151 | NUDT7A-x0254 | NUDT7A-x0384 | NUDT7A-x0389
-| --- | --- | --- | --- | --- | ---
-| NUDT7A-x0129 | 35 | 30 | 47 | 15 | 39
-| NUDT7A-x0151 | 18 | 49 | 31 | 46 | 26
-| NUDT7A-x0254 | 9 | 50 | 41 | 46 | 39
-| NUDT7A-x0384 | 49 | 45 | 47 | 20 | 48
-| NUDT7A-x0389 | 47 | 3 | 35 | 21 | 41
-
-Clearly the 'best' pose as determined by RMSD to the crystal structure ligand often ranks quite low.
-But despite this rDock is able to find the 'correct' pose in all cases.
-
-## Conclusions
-
-Clearly we should not trust the docking scores and need to look at alternative ways to score the docked posed.
+The 'best' pose as determined by RMSD to the crystal structure ligand often ranks quite low.
+But despite this rDock is mostly able to find the 'correct' pose with most RMSDs of the docked ligand compared that ligands
+conformation in the crystal structure being < 2A. The exception is NUDT7A-x0254 which has an average RMSD of 3.28 showing
+that this ligand is less accurately docked into its own receptor than for the other ligand/receptor combinations which have 
+averages comfortably less than 2.0.
 
 Clearly we need to generate a reasonably large number of poses and not rely on the best scoring ones.
 
-Overall the NUDT7A-x0129 protein seems the best target to use as the sum of the RMSD scores is lowest, but it does not
-handle 2 of the ligands, NUDT7A-x0151 and NUDT7A-x0384, well. The proteins for those two ligands do handle their own
-ligand well, but do not handle any of the other ligands well.
+Overall the NUDT7A-x0151 protein seems the best target to use as the sum of the RMSD scores is lowest and it has the lowest
+worst score (RMSD of 4.65), but it does not handle 2 of the ligands, NUDT7A-x0129 and NUDT7A-x0389, particularly well. 
+The proteins for those two ligands do handle their own ligand well, and NUDT7A-x0389 also handles the NUDT7A-x0129 ligand 
+well (but not vice-versa).
 
-So if you wanted to choose only one taget to use you would select NUDT7A-x0129. If you wanted to be sure you had better
-coverage then you would also need to include NUDT7A-x0151 and NUDT7A-x0384.
+So if you wanted to choose only one target to use you would select NUDT7A-x0151. If you wanted to be sure you had better
+coverage then you would also need to include NUDT7A-x0389.
 
 ## Future work
 
-Investigate better ways to prepare the protein.
-
-Investigate the two spheres approach for cavity generation.
-
-Investigate other docking algorithms.
-
-Investigate clustering the docking poses and keeping the top scoring pose in each cluster.
-
-Examine these docking poses with respect to the known hydrogen bonding and other interactions.
-
-Investigate whether keeping specific water molecules in the protein structure can improve results.
-
-Extend to other datasets.
+- Investigate better ways to prepare the protein.
+- Investigate the two spheres approach for cavity generation.
+- Investigate other docking algorithms.
+- Investigate clustering the docking poses and keeping the top scoring pose in each cluster.
+- Examine these docking poses with respect to the known hydrogen bonding and other interactions.
+- Investigate whether keeping specific water molecules in the protein structure can improve results.
+- Extend to other datasets.
 
 
