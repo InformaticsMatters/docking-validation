@@ -5,7 +5,7 @@
 
 params.ligands = '../enumerated_chunk_*.sdf'
 params.hits = '../../hits.sdf'
-params.protein_pdb = 'receptor.pdb' // transfs seems to needed the name to to be receptor.pdb
+params.protein_pdb = 'receptor.pdb'
 params.protein_mol2 = 'receptor.mol2'
 params.prmfile = 'docking-local.prm'
 params.asfile =  'docking-local.as'
@@ -14,11 +14,10 @@ params.limit = 0
 params.num_dockings = 25
 params.field = 'SCORE.norm'
 params.mock = false
-params.distance = 2.0
+params.distance = 0
 params.transfs_chunk = 100000
 params.num_gpus = 'all'
 params.max_forks = 1
-
 
 prmfile = file(params.prmfile)
 ligands = file(params.ligands)
@@ -75,8 +74,6 @@ process collect_poses {
 
 	container 'informaticsmatters/rdock-mini:latest'
 
-	//publishDir '.', mode: 'copy'
-
 	input:
 	file parts from docked_parts.collect()
 
@@ -93,7 +90,7 @@ process collect_poses {
 */
 process score_transfs {
 
-    container 'informaticsmatters/transfs:latest'
+    container 'informaticsmatters/transfs:1.3'
     containerOptions params.mock ? '' : "--gpus $params.num_gpus"
     maxForks params.max_forks
 
@@ -101,19 +98,16 @@ process score_transfs {
 
     input:
     file poses
-    file protein_pdb
+    file 'receptor.pdb' from protein_pdb
 
     output:
     file 'scored_tfs_*.sd' into scored_transfs
-    file "${poses}-receptors.pdb.tgz"
-
 
     """
     base=\$PWD
     cd /train/fragalysis_test_files/
-    python transfs.py -i \$base/$poses -r \$base/$protein_pdb -d $params.distance -w /tmp/work ${params.mock ? '--mock' : ''}
-    mv /tmp/work/output.sdf \$base/scored_tfs_${poses}
-    tar cvfz \$base/${poses}-receptors.pdb.tgz /tmp/work/*.pdb
+    python transfs.py -i \$base/$poses -r \$base/receptor.pdb -d $params.distance -w \$base/tfs ${params.mock ? '--mock' : ''}
+    mv \$base/tfs/output.sdf \$base/scored_tfs_${poses}
     """
 }
 
@@ -130,7 +124,7 @@ process rank_transfs {
     file 'ranked_transfs.sdf' into ranked_transfs
 
     """
-    sdsort -n -r -s -fTransFSScore $parts | sdfilter -f'\$_COUNT <= 1' | sdsort -n -r -fTransFSScore > ranked_transfs.sdf
+    sdsort -n -r -s -fTransFSScore $parts | sdfilter -f'\$_COUNT <= 1' > ranked_transfs.sdf
     """
 }
 

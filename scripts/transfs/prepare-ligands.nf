@@ -1,8 +1,9 @@
 
 params.candidates = 'expanded.smi'
 params.chunk = 1000
-params.min_ph = 4.4
-params.max_ph = 10.4
+params.min_ph = 5.4
+params.max_ph = 9.4
+params.digits = 3
 
 candidates = file(params.candidates)
 
@@ -16,7 +17,7 @@ process split_smiles {
     file 'chunk_*' into chunks mode flatten
 
     """
-    split -l ${params.chunk} -d $candidates chunk_
+    split -l ${params.chunk} -d -a ${params.digits} $candidates chunk_
     """
 }
 

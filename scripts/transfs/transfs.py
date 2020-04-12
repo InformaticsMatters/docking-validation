@@ -22,7 +22,6 @@ import random
 from openbabel import pybel
 
 types_file_name = 'inputs.types'
-types_file_name = 'inputs.types'
 predict_file_name = 'predictions.txt'
 work_dir = '.'
 paths = None
@@ -34,6 +33,34 @@ def log(*args, **kwargs):
     """Log output to STDERR
     """
     print(*args, file=sys.stderr, ** kwargs)
+
+def copy_raw_inputs(receptor_pdb, ligands_sdf):
+    """
+    No waters to analyse so we just symlink the PDB and SDF files to the right locations
+    :param receptor_pdb:
+    :param ligands_sdf:
+    :return:
+    """
+
+    global paths
+
+    log("Writing data to", work_dir)
+    if not os.path.isdir(work_dir):
+        os.mkdir(work_dir)
+
+    receptor_file = os.path.basename(receptor_pdb)
+    name = receptor_file[0:-4]
+    pdb_symlink = os.path.sep.join([work_dir, name + '.pdb'])
+    os.symlink(receptor_pdb, pdb_symlink)
+    ligands_dir = os.path.sep.join([work_dir, name])
+    paths = []
+    paths.append(ligands_dir)
+    if not os.path.isdir(ligands_dir):
+        os.mkdir(ligands_dir)
+    ligands_symlink = os.path.sep.join([ligands_dir, 'ligands.sdf'])
+    os.symlink(ligands_sdf, ligands_symlink)
+    log('Symlinked', pdb_symlink, 'and', ligands_symlink)
+
 
 def write_raw_inputs(receptor_pdb, ligands_sdf, distance):
     """
@@ -47,11 +74,7 @@ def write_raw_inputs(receptor_pdb, ligands_sdf, distance):
     :return:
     """
 
-    global work_dir
-    global inputs_protein
-    global inputs_ligands
     global paths
-
 
     log("Writing data to", work_dir)
     if not os.path.isdir(work_dir):
@@ -87,7 +110,7 @@ def write_raw_inputs(receptor_pdb, ligands_sdf, distance):
             # getting receptor without waters that will clash with ligand
             new_receptor_pdb = []
             for line in lines:
-                if line[17:20] == 'HOH':
+                if line.startswith('HETATM') and line[17:20] == 'HOH':
                     x, y, z = float(line[30:39]),  float(line[39:46]), float(line[46:55])
                     distances = []
                     for i in coords:
@@ -149,17 +172,21 @@ def write_inputs(protein_file, ligands_file, distance):
     """
 
     global types_file_name
-    global work_dir
     global inputs_protein
     global inputs_ligands
     global prepared_ligands
 
-    write_raw_inputs(protein_file, ligands_file, distance)
+    if distance:
+        write_raw_inputs(protein_file, ligands_file, distance)
+    else:
+        copy_raw_inputs(protein_file, ligands_file)
 
     types_path = os.path.sep.join([work_dir, types_file_name])
     log("Writing types to", types_path)
-    num_proteins = 0
-    num_ligands = 0
+
+    tot_proteins = 0
+    tot_ligands = 0
+
     with open(types_path, 'w') as types_file:
 
         for path in paths:
@@ -191,32 +218,33 @@ def write_inputs(protein_file, ligands_file, distance):
             protein_gninatypes = os.listdir(os.path.sep.join([path, 'proteins']))
 
             for protein in protein_gninatypes:
-                num_proteins += 1
+                tot_proteins += 1
                 num_ligands = 0
                 inputs_protein.append(protein)
                 inputs_protein.append(os.path.sep.join([path, 'proteins', protein]))
                 for ligand in ligand_gninatypes:
                     num_ligands += 1
+                    tot_ligands += 1
                     log("Handling", protein, ligand)
                     inputs_ligands.append(os.path.sep.join([path, 'ligands', ligand]))
                     line = "0 {0}{3}proteins{3}{1} {0}{3}ligands{3}{2}\n".format(path, protein, ligand, os.path.sep)
                     types_file.write(line)
 
-    return num_proteins, num_ligands
+    return tot_proteins, tot_ligands
 
 
 def generate_predictions_filename(work_dir, predict_file_name):
     return "{0}{1}{2}".format(work_dir, os.path.sep, predict_file_name)
 
 
-def run_predictions():
+def run_predictions(model):
     global types_file_name
     global predict_file_name
     global work_dir
     # python3 scripts/predict.py -m resources/dense.prototxt -w resources/weights.caffemodel -i work_0/test_set.types >> work_0/caffe_output/predictions.txt
     cmd1 = ['python3', '/train/fragalysis_test_files/scripts/predict.py',
             '-m', '/train/fragalysis_test_files/resources/dense.prototxt',
-            '-w', '/train/fragalysis_test_files/resources/weights.caffemodel',
+            '-w', os.path.sep.join(['/train/fragalysis_test_files/resources', model]),
             '-i', os.path.sep.join([work_dir, types_file_name]),
             '-o', os.path.sep.join([work_dir, predict_file_name])]
     log("CMD:", cmd1)
@@ -224,7 +252,7 @@ def run_predictions():
 
 
 def mock_predictions():
-    global work_dir
+
     global predict_file_name
 
     log("WARNING: generating mock results instead of running on GPU")
@@ -251,7 +279,7 @@ def read_predictions():
     global predict_file_name
     global work_dir
     scores = {}
-    with open("{0}{1}{2}".format(work_dir, os.path.sep, predict_file_name), 'r') as input:
+    with open(os.path.sep.join([work_dir, predict_file_name]), 'r') as input:
         for line in input:
             # log(line)
             tokens = line.split()
@@ -268,7 +296,7 @@ def read_predictions():
 def patch_scores_sdf(outfile, scores):
 
     counter = 0
-    sdf_path = "{0}{1}{2}".format(work_dir, os.path.sep, outfile)
+    sdf_path = os.path.sep.join([work_dir, outfile])
     log("Writing results to {0}".format(sdf_path))
     sdf_file = pybel.Outputfile("sdf", sdf_path)
 
@@ -276,7 +304,7 @@ def patch_scores_sdf(outfile, scores):
         for mol in pybel.readfile("sdf", os.path.sep.join([path, 'ligands.sdf'])):
             if counter in scores:
                 score = scores[counter]
-                # og("Score for record {0} is {1}".format(counter, score))
+                # log("Score for record {0} is {1}".format(counter, score))
                 mol.data['TransFSScore'] = score
                 sdf_file.write(mol)
             else:
@@ -285,13 +313,13 @@ def patch_scores_sdf(outfile, scores):
     sdf_file.close()
 
 
-def execute(ligands_sdf, protein, outfile, distance, mock=False):
+def execute(ligands_sdf, protein, outfile, distance, model='weights.caffemodel', mock=False):
 
     write_inputs(protein, ligands_sdf, distance)
     if mock:
         mock_predictions()
     else:
-        run_predictions()
+        run_predictions(model)
     scores = read_predictions()
     patch_scores_sdf(outfile, scores)
 
@@ -306,14 +334,15 @@ def main():
     parser.add_argument('-d', '--distance', type=float, default=2.0, help="Cuttoff for removing waters")
     parser.add_argument('-o', '--outfile', default='output.sdf', help="File name for results")
     parser.add_argument('-w', '--work-dir', default=".", help="Working directory")
+    parser.add_argument('-m', '--model', default="weights.caffemodel", help="Model to use for predictions")
     parser.add_argument('--mock', action='store_true', help='Generate mock scores rather than run on GPU')
 
     args = parser.parse_args()
-    log("XChem deep args: ", args)
+    log("TransFS args: ", args)
 
     work_dir = args.work_dir
 
-    execute(args.input, args.receptor, args.outfile, args.distance, mock=args.mock)
+    execute(args.input, args.receptor, args.outfile, args.distance, model=args.model, mock=args.mock)
 
 
 if __name__ == "__main__":

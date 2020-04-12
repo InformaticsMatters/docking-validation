@@ -23,4 +23,6 @@ curl -kL -H "Authorization: bearer $token" -H "Content-Type: chemical/x-mdl-sdfi
 
 jq -r .results[].smiles expanded.json > expanded.smi
 
-# obabel expanded.smi -o sdf -O expanded.sdf -p 7.4 --gen3D
+# sed 's/\(.*\)/\1 \1/' expanded.smi > expandedx2.smi
+
+# obabel expandedx2.smi -o sdf -O expanded.sdf -p 7.4 --gen3D
