@@ -59,7 +59,7 @@ def copy_raw_inputs(receptor_pdb, ligands_sdf):
         os.mkdir(ligands_dir)
     ligands_symlink = os.path.sep.join([ligands_dir, 'ligands.sdf'])
     os.symlink(ligands_sdf, ligands_symlink)
-    log('Symlinked', pdb_symlink, 'and', ligands_symlink)
+    log('Symlinked', receptor_pdb, '->', pdb_symlink, 'and', ligands_sdf, '->', ligands_symlink)
 
 
 def write_raw_inputs(receptor_pdb, ligands_sdf, distance):
@@ -176,7 +176,7 @@ def write_inputs(protein_file, ligands_file, distance):
     global inputs_ligands
     global prepared_ligands
 
-    if distance:
+    if distance > 0:
         write_raw_inputs(protein_file, ligands_file, distance)
     else:
         copy_raw_inputs(protein_file, ligands_file)
