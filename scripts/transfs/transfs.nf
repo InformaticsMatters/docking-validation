@@ -132,7 +132,7 @@ process score_sucos {
 
     container 'informaticsmatters/rdkit_pipelines:latest'
 
-    publishDir '.', mode: 'copy'
+    publishDir '.', mode: 'link'
 
     input:
     file ranked_transfs

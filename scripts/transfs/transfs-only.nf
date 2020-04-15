@@ -50,7 +50,7 @@ process score_transfs {
     containerOptions params.mock ? '' : "--gpus $params.num_gpus"
     maxForks params.max_forks
 
-    publishDir '.', mode: 'copy'
+    publishDir '.', mode: 'link'
 
     input:
     file chunks
