@@ -7,6 +7,7 @@ set -e
 basename=$1
 num=50
 cd $basename
+rm -f *_docking.log *.sd *.rmsd rmsd.scores
 
 for m in ../Mpro*.mol
 do
