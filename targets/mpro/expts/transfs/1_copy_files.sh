@@ -8,7 +8,7 @@ cp ../../../../scripts/select_points_SDF.pl .
 
 if [ ! -d xray ]; then mkdir xray; fi
 
-for p in ../../../../datasets/XChem/MPRO/*
+for p in ../../../../datasets/XChem/MPRO/Mpro-x*
 do
     d=$(echo $p | cut -d '/' -f8)
     echo "Using dir $d"

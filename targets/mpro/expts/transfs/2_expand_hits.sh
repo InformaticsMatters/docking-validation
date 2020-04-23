@@ -18,7 +18,7 @@ token=$(curl -d "grant_type=password" -d "client_id=fragnet-search" -d "username
   | jq -r '.access_token')
 
 echo "Expanding hits"
-curl -kL -H "Authorization: bearer $token" -H "Content-Type: chemical/x-mdl-sdfile" --data-binary "@hits.sdf" "https://fragnet-staging.informaticsmatters.org/fragnet-search/rest/v2/search/expand-multi?hac=5&rac=2&hops=2" > expanded.json
+curl -kL -H "Authorization: bearer $token" -H "Content-Type: chemical/x-mdl-sdfile" --data-binary "@hits.sdf" "https://fragnet-staging.informaticsmatters.org/fragnet-search/rest/v2/search/expand-multi?hacMin=0&hacMax=10&racMin=0&racMax=3&hops=2&id_prop=_Name" > expanded.json
 
 
 jq -r .results[].smiles expanded.json > expanded.smi
