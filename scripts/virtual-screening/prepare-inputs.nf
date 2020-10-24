@@ -48,7 +48,7 @@ process enumerate {
 
 process prepare3d {
 
-    container 'informaticsmatters/obabel:latest'
+    container 'informaticsmatters/obabel:3.1.1'
     publishDir './results', mode: 'copy'
 
     input:
@@ -58,7 +58,7 @@ process prepare3d {
     file 'Prep_*.sdf' into prepared_candidates
 
     """
-    obabel '$molecules' -O'Prep_${molecules.name[0..-5]}.sdf' -h --gen3D -e > obabel.log
+    obabel '$molecules' -O'Prep_${molecules.name[0..-5]}.sdf' -h --gen3D --add cansmi  > obabel.log
     """
 }
 
