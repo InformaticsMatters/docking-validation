@@ -1,0 +1,4 @@
+The ligand from Fragalysis for this complex is probably in the wrong tautomeric state.
+The Mpro-x1093_0.mol file has been updated to the correct tautomer.
+Mpro-x1093_0-orig.mol is the original molecule (wrong tautomer).
+Mpro-x1093_0-tautomer.mol is the correct tautomer (same as Mpro-x1093_0.mol).

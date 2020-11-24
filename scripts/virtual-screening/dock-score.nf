@@ -88,7 +88,7 @@ process rdock {
     """
 }
 
-process featurestein {
+process overlaps {
 
     container 'informaticsmatters/rdkit_pipelines:latest'
 
