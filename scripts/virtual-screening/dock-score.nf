@@ -1,6 +1,7 @@
 #!/usr/bin/env nextflow
 
 params.chunk = 25
+params.scratch = true
 
 // docking params
 params.ligands = 'ligands.sdf'
@@ -72,6 +73,7 @@ process rdock {
     container 'informaticsmatters/rdock:2013.1'
     errorStrategy 'retry'
     maxRetries 3
+    scratch params.scratch
 
     input:
     file part from ligand_parts.flatten()
@@ -88,11 +90,14 @@ process rdock {
     """
 }
 
-process overlaps {
+process scoring {
 
-    container 'informaticsmatters/rdkit_pipelines:latest'
+    container 'informaticsmatters/rdkit_pipelines:inters'
+    errorStrategy 'retry'
+    maxRetries 3
+    scratch params.scratch
 
-	input:
+    input:
     file part from docked_parts
     file featuremaps
     file refmol
@@ -108,7 +113,10 @@ process overlaps {
 
 process interactions {
 
-    container 'informaticsmatters/rdkit_pipelines:latest'
+    container 'informaticsmatters/rdkit_pipelines:inters'
+    errorStrategy 'retry'
+    maxRetries 3
+    scratch params.scratch
 
     input:
     file part from featurestein_parts
@@ -129,16 +137,20 @@ process interactions {
       --nnscore /opt/python/NNScore_pdbbind2016.pickle\
       --rfscore /opt/python/RFScore_v1_pdbbind2016.pickle /opt/python/RFScore_v2_pdbbind2016.pickle /opt/python/RFScore_v3_pdbbind2016.pickle\
       --compare '$interactions'\
-      --strict
+      --strict\
+      --exact-ligand
     """
 }
 
 
 process xcos {
 
-    container 'informaticsmatters/rdkit_pipelines:latest'
+    container 'informaticsmatters/rdkit_pipelines:inters'
+    errorStrategy 'retry'
+    maxRetries 3
+    scratch params.scratch
 
-	input:
+    input:
     file part from interactions_parts
     file fragments
 
@@ -169,3 +181,4 @@ process filter_and_report {
     gzip results.sdf
     """
 }
+
