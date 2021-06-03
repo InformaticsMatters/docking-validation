@@ -136,6 +136,7 @@ process interactions {
       ${params.key_pi_cation ? '--key-pi-cation ' + params.key_pi_cation : ''}\
       --nnscore /opt/python/NNScore_pdbbind2016.pickle\
       --rfscore /opt/python/RFScore_v1_pdbbind2016.pickle /opt/python/RFScore_v2_pdbbind2016.pickle /opt/python/RFScore_v3_pdbbind2016.pickle\
+      --plecscore /opt/python/PLEClinear_p5_l1_pdbbind2016_s65536.pickle\
       --compare '$interactions'\
       --strict\
       --exact-ligand
