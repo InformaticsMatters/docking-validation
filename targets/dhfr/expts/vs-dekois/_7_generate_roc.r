@@ -21,7 +21,7 @@ perfScoreuq <- performance(predScoreuq, 'tpr','fpr')
 
 #plot in jpg format with a grey line with theoretical random results
 jpeg("ROC.jpg")
-plot(perfScoreuq,main="DHFR - Smina, vinardo, minimizedAffinity",col="blue")
+plot(perfScoreuq,main="DHFR - ROC curve",col="blue")
 abline(0,1,col="grey")
 dev.off()
 
