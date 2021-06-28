@@ -1,7 +1,13 @@
 # Comparison of rDock and Smina
 
 This directory contains scripts that allow rDock and Smina to be compared,
-using DHFR DEKOIS data 
+using DHFR DEKOIS data. See [here](/datasets/DEKOIS_2.0/README.md) for more
+infomation about the data.
+
+There are 40 known actives and 1200 decoys, presumed
+to be inactive. This validation checks how good the docking is at ranking the
+actives at the top of the predicted binding list.
+ 
 
 ## Step 1. Copy data.
 ```
@@ -10,21 +16,21 @@ using DHFR DEKOIS data
 
 ## Step 2. Prepare the inputs
 ```
-2_prepare_inputs.sh
+./2_prepare_inputs.sh
 ```
 
 ## Step 3. Create rDock cavity defintion
 ```
-3_create_cavity.sh
+./3_create_cavity.sh
 ```
 
 ## Step 4. Run rDock or Smina
 ```
-4_run_rdock.sh --publish_dir ./results_rdock
+./4_run_rdock.sh --publish_dir ./results_rdock
 ```
 
 ```
-4_run_smina.sh --scoring_function vina --publish_dir ./results_smina_vina
+./4_run_smina.sh --scoring_function vina --publish_dir ./results_smina_vina
 ```
 Adjust the parameters to run with the different scoring functions (dkoes_fast, dkoes_scoring, dkoes_scoring_old,
 vina, vinardo, ad4_scoring).
@@ -61,6 +67,7 @@ Sort the results and report the scores:
 ```
 sdsort -n -fminimizedAffinity results_smina_ad4/results_1poseperlig.sdf | sdreport -cminimizedAffinity | fgrep BDB > results_smina_ad4/actives-ranked.csv
 ```
+Run this from the `informaticsmatters/vs-rdock:latest` container image (TODO - improve this).
 Change the field name and the directory used (3 edits needed).
 Then examing the `actives-ranked.csv` file and see how many are in the top 100.
 
