@@ -2,8 +2,9 @@
 
 set -e
 
-docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) abradle/obabel obabel receptor.pdb -Oreceptor.mol2
-docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) abradle/obabel obabel xtal-lig.mol2 -Oxtal-lig.sdf
-gunzip -c actives.sdf.gz decoys.sdf.gz | gzip > ligands.sdf.gz
-
+docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/vs-prep obabel receptor.pdb -O receptor.mol2
+docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/vs-prep obabel xtal-lig.mol2 -O xtal-lig.mol
+docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/vs-prep obabel actives.sdf.gz -O actives.sdf
+docker run -it --rm -v $PWD:/work:z -w /work -u $(id -u):$(id -g) informaticsmatters/vs-prep obabel decoys.sdf.gz -O decoys.sdf
+cat actives.sdf decoys.sdf > ligands.sdf
 

@@ -1,102 +1,88 @@
-# Validation of docking with rDock using the DEKOIS DHFR dataset
+# Comparison of rDock and Smina
 
-This experiment uses the DEKOIS datasets for DHFR to validate docking with rDock.
-The output is a ROC curve showing the enrichment.
+This directory contains scripts that allow rDock and Smina to be compared,
+using DHFR DEKOIS data 
 
-The experiment aims to standarize the process so that it can be used as a template for defining rDock execution
-in Squonk. 
-
-## Requirements
-
-Nextflow and Docker must be installed on the host machine.
-
-## To run 
-
-### 1. Copy files
-
-Copy the relevant files from /datasets/DEKOIS_2.0.
-
-```sh
+## Step 1. Copy data.
+```
 ./1_copy_files.sh
 ```
 
-The results are the files decoys.sdf.gz, actives.sdf.gz, receptor.pdb and xtal-lig.mol2
-
-### 2. Prepare inputs
-
-Use OpenBabel to convert the protein to MOL2 format and the bound ligand to SDF format. 
-
-
-```sh
-./2_prepare_inputs.sh
+## Step 2. Prepare the inputs
+```
+2_prepare_inputs.sh
 ```
 
-The results are the files receptor.mol2, xtal-lig.sdf and ligands.sdf.gz
-
-### 3. Create cavity
-
-rDock needs a cavity defintion. In this case we use the rbcavity program that uses a cound ligand to define the 
-cavity.
-
-```sh
-./3_create_cavity.sh
+## Step 3. Create rDock cavity defintion
+```
+3_create_cavity.sh
 ```
 
-The results are the rdockconfig_cav1.grd and rdockconfig.as files.
-
-This runs the rbcavity in the [informaticsmatters/rdock/](https://hub.docker.com/r/informaticsmatters/rdock/) 
-Docker image.
-
-### 4. Perform docking with rDock
-
-This runs the docking using [Nextflow](http://nextflow.io) which executes each of the stages, parallelising
-the computationally demanding process of doing the actual dockings according to the number of cores on the machine.
-See the rdock.nf file for details.
-
-```sh
-./4_run_rdock.sh
+## Step 4. Run rDock or Smina
 ```
-The result is the rdock_results.sdf.gz file.
-
-This uses the [informaticsmatters/rdkit_pipelines](https://hub.docker.com/r/informaticsmatters/rdkit_pipelines/) 
-and [informaticsmatters/rdock/](https://hub.docker.com/r/informaticsmatters/rdock/) 
-Docker images.
-
-**Note** this will take some time depending on the power of your computer.
-
-
-### 5. Prepare the ROC curve data
-
-This filters the docked structures to find the best score for each structure and then generates the input
-that is needed by R. 
-
-```sh
-./5_prepare_roc.sh
+4_run_rdock.sh --publish_dir ./results_rdock
 ```
 
-The result is the file rdock_results_1poseperlig.sdf.gz which contains the best pose for each ligand and data extracted
-from that file that is needed by R (the rdock_dataforR_uq.txt).
+```
+4_run_smina.sh --scoring_function vina --publish_dir ./results_smina_vina
+```
+Adjust the parameters to run with the different scoring functions (dkoes_fast, dkoes_scoring, dkoes_scoring_old,
+vina, vinardo, ad4_scoring).
 
-This uses the [informaticsmatters/rdock](https://hub.docker.com/r/informaticsmatters/rdock/builds/) Docker image
-that contains the rDock programs.
+Each run takes several hours, depending on your compute power. 
 
-### 5. Generate ROC curve
+## Step 5. Run ODDT rescoring functions (optional)
 
-This uses the data from the previous step to geneate a JPG with the ROC curve.
 
-```sh
-./5_generate_roc.sh
+## Step 6. Prepare data for ROC calculations
+Run this for each of your output datasets, providing the SDF file with the poses as the first parameter
+and the field with the score you are interested in as the second parameter.
+e.g. for the rDock results use this:
+```
+./6_prepare_roc.sh results_rdock/results_rdock.sdf SCORE.norm
+```
+e.g. for the Smina results use something lile this:
+```
+./6_prepare_roc.sh results_smina_ad4/results_smina.sdf minimizedAffinity
 ```
 
-The result is the JPG file cdk2_rdock_ROC.jpg
+## Step 7. Generate ROC curves
+```
+./7_generate_roc.sh
+```
+You might want to edit the title the ROC curve is givven by editing the title that is defined
+in the file `_7_generate_roc.r`.
 
-![result.jpg](result.jpg)
+Running steps 6 and 7 generates the files `results_1poseperlig.sdf`, `dataforR_uq.txt` and `ROC.jpg`.
+Copy these into the appropriate directory to stop them being overwritten.
+
+## Step 8. Count the number of actives in the top 100. 
+Sort the results and report the scores:
+```
+sdsort -n -fminimizedAffinity results_smina_ad4/results_1poseperlig.sdf | sdreport -cminimizedAffinity | fgrep BDB > results_smina_ad4/actives-ranked.csv
+```
+Change the field name and the directory used (3 edits needed).
+Then examing the `actives-ranked.csv` file and see how many are in the top 100.
 
 
-This uses the [informaticsmatters/r-roc](https://hub.docker.com/r/informaticsmatters/r-roc/builds/) Docker image 
-that contains R and the ROCR package.
+# Tricks
+
+To get sdfilter to group by the title line use the -s_TITLE1 option. By default it seems to use the
+field named `Name` unlike the other rDock tools.
 
 
+# Results
 
+| tool            | ROC curve                               | # actives in top 100 |
+|-----------------|-----------------------------------------|----------------------|
+| rDock           | ![rDock](results_rdock/ROC.jpg)         | 19 |
+| Smina - vina    | ![rDock](results_smina_vina/ROC.jpg)    | 3  |
+| Smina - vinardo | ![rDock](results_smina_vinardo/ROC.jpg) | 13 |
+| Smina - dkoes   | ![rDock](results_smina_dkoes/ROC.jpg)   | 1  |
+| Smina - ad4     | ![rDock](results_smina_ad4/ROC.jpg)     | 3  |
 
+rDock is performing quite well.
+The Smina results are quite surpising. Whilst the vinardo scoring function performs reasonably well
+(but not quite as good as rDock) the other scoring functions behave extremely badly, being no better
+than random. The reason is not clear.
 
