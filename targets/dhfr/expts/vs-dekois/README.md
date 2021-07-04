@@ -47,29 +47,32 @@ e.g. for the rDock results use this:
 ```
 ./6_prepare_roc.sh results_rdock/results_rdock.sdf SCORE.norm
 ```
-e.g. for the Smina results use something lile this:
+e.g. for the Smina results use something like this:
 ```
 ./6_prepare_roc.sh results_smina_ad4/results_smina.sdf minimizedAffinity
 ```
+Running this generates the files `results_1poseperlig.sdf` and `results_1poseperlig.txt` in the current directory.
+Copy them to the appropropriate results directory.
 
 ## Step 7. Generate ROC curves
+This command assumes you have run rDock and have run Smina with the vinaardo, vina, dkoes_scoring and ad4_scoring
+scoring functions and have copied the `results_1poseperlig.sdf` and `results_1poseperlig.txt` into the appropriate
+results directory.
 ```
 ./7_generate_roc.sh
 ```
-You might want to edit the title the ROC curve is givven by editing the title that is defined
-in the file `_7_generate_roc.r`.
-
-Running steps 6 and 7 generates the files `results_1poseperlig.sdf`, `dataforR_uq.txt` and `ROC.jpg`.
-Copy these into the appropriate directory to stop them being overwritten.
+The ROC curve is found in the file ROC.png.
 
 ## Step 8. Count the number of actives in the top 100. 
 Sort the results and report the scores:
 ```
-sdsort -n -fminimizedAffinity results_smina_ad4/results_1poseperlig.sdf | sdreport -cminimizedAffinity | fgrep BDB > results_smina_ad4/actives-ranked.csv
+docker run -it --rm -v $PWD:/work -w /work -u $(id -u):$(id -g) informaticsmatters/vs-rdock:latest /bin/bash\
+  -c "sdsort -n -fminimizedAffinity results_smina_ad4/results_1poseperlig.sdf\
+  | sdreport -cminimizedAffinity\
+  | fgrep BDB > results_smina_ad4/actives-ranked.csv"
 ```
-Run this from the `informaticsmatters/vs-rdock:latest` container image (TODO - improve this).
 Change the field name and the directory used (3 edits needed).
-Then examing the `actives-ranked.csv` file and see how many are in the top 100.
+Then examine the `actives-ranked.csv` file and see how many are in the top 100.
 
 
 # Tricks
@@ -80,13 +83,15 @@ field named `Name` unlike the other rDock tools.
 
 # Results
 
-| tool            | ROC curve                               | # actives in top 100 |
-|-----------------|-----------------------------------------|----------------------|
-| rDock           | ![rDock](results_rdock/ROC.jpg)         | 19 |
-| Smina - vina    | ![rDock](results_smina_vina/ROC.jpg)    | 3  |
-| Smina - vinardo | ![rDock](results_smina_vinardo/ROC.jpg) | 13 |
-| Smina - dkoes   | ![rDock](results_smina_dkoes/ROC.jpg)   | 1  |
-| Smina - ad4     | ![rDock](results_smina_ad4/ROC.jpg)     | 3  |
+![rDock](ROC.png)
+
+| tool            | # actives in top 100 |
+|-----------------|----------------------|
+| rDock           | 19 |
+| Smina - vinardo | 13 |
+| Smina - vina    | 3  |
+| Smina - dkoes   | 1  |
+| Smina - ad4     | 3  |
 
 rDock is performing quite well.
 The Smina results are quite surpising. Whilst the vinardo scoring function performs reasonably well

@@ -1,6 +1,6 @@
 actives.*
 decoys.*
-ligands.sdf
+ligands.*
 rdockconfig.as
 rdockconfig_cav1.grd
 receptor.*
