@@ -5,6 +5,6 @@ rdockconfig.as
 rdockconfig_cav1.grd
 receptor.*
 xtal-lig.*
-**/dataforR_uq.txt
+**/results_1poseperlig.*
 **/*.sdf
 work
