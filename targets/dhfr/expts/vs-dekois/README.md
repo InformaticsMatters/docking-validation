@@ -55,7 +55,7 @@ Running this generates the files `results_1poseperlig.sdf` and `results_1poseper
 Copy them to the appropropriate results directory.
 
 ## Step 7. Generate ROC curves
-This command assumes you have run rDock and have run Smina with the vinaardo, vina, dkoes_scoring and ad4_scoring
+This command assumes you have run rDock and have run Smina with the vinardo, vina, dkoes_scoring and ad4_scoring
 scoring functions and have copied the `results_1poseperlig.sdf` and `results_1poseperlig.txt` into the appropriate
 results directory.
 ```
