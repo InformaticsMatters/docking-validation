@@ -66,22 +66,31 @@ The ROC curve is found in the file ROC.png.
 ## Step 8. Count the number of actives in the top 100. 
 Sort the results and report the scores:
 ```
+TGT=results_smina_ad4
+FLD=minimizedAffinity
 docker run -it --rm -v $PWD:/work -w /work -u $(id -u):$(id -g) informaticsmatters/vs-rdock:latest /bin/bash\
-  -c "sdsort -n -fminimizedAffinity results_smina_ad4/results_1poseperlig.sdf\
-  | sdreport -cminimizedAffinity\
-  | fgrep BDB > results_smina_ad4/actives-ranked.csv"
+  -c "sdsort -n -f$FLD $TGT/results_1poseperlig.sdf\
+  | sdreport -c$FLD\
+  | fgrep BDB > $TGT/actives-ranked.csv"
 ```
-Change the field name and the directory used (3 edits needed).
+Change the TGT and FLD variables to reflect the inputs.
 Then examine the `actives-ranked.csv` file and see how many are in the top 100.
 
 
-# Tricks
+## Tricks
 
 To get sdfilter to group by the title line use the -s_TITLE1 option. By default it seems to use the
 field named `Name` unlike the other rDock tools.
 
+To copy the relevant contents to run for a different target run something like this (having already created the 
+destination directory):
+```
+cp 1_copy_files.sh 2_prepare_inputs.sh 3_create_cavity.sh 4_run_rdock.sh 4_run_smina.sh 5_oddt.sh 6_prepare_roc.sh 7_generate_roc.sh _6_prepare_roc.sh _7_generate_roc.r nextflow.config oddt.nf rdockconfig.prm rdock.nf smina.nf ../../../thrombin/expts/vs-dekois/
+```
+Then make sure you edit the `1_copy_files.sh` file at that destination. 
 
-# Results
+
+## Results
 
 ![rDock](ROC.png)
 
@@ -97,4 +106,11 @@ rDock is performing quite well.
 The Smina results are quite surpising. Whilst the vinardo scoring function performs reasonably well
 (but not quite as good as rDock) the other scoring functions behave extremely badly, being no better
 than random. The reason is not clear.
+
+## Other results
+
+This approach has been run on some other targets:
+
+* [CDK2](../../../cdk2/expts/vs-dekois)
+* [SARS-Cov](../../../sars-cov-3cpr/expts/vs-dekois)
 
