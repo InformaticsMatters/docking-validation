@@ -62,7 +62,7 @@ of the dataset and attribute ownership appropriately.
 ## Highlights
 
 * [CDK2 virtual screening with rDock](targets/cdk2/expts/vs-rdock-expt1/README.md)
-* Docking validation for DHFR using rDock and Smina using DEKIOS data: [DHFR](targets/dhfr/expts/vs-dekois/README.md) - also for [CDK2](targets/cdk2/expts/vs-dekois/README.md), [SARS-COV](targets/sars-cov-3cpr/expts/vs-dekois/README.md)
+* Docking validation using rDock and Smina using DEKIOS data: [DHFR](targets/dhfr/expts/vs-dekois/README.md) - also for [CDK2](targets/cdk2/expts/vs-dekois/README.md), [SARS-COV](targets/sars-cov-3cpr/expts/vs-dekois/README.md)
 * [Generating ROC curves](targets/hivpr/expts/vs_roc_curve/README.md)
 * [Docking pose validation for ESR](targets/esr/expts/pose-validation/README.md)
 * [rDock setup for use in Squonk](targets/dhfr/expts/vs-simple-rdock/README.md)
