@@ -113,4 +113,5 @@ This approach has been run on some other targets:
 
 * [CDK2](../../../cdk2/expts/vs-dekois)
 * [SARS-Cov](../../../sars-cov-3cpr/expts/vs-dekois)
+* [Thrombin](../../../thrombin/expts/vs-dekois)
 

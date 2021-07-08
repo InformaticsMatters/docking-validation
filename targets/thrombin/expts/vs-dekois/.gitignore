@@ -1,0 +1,9 @@
+actives.*
+decoys.*
+ligands.sdf
+rdockconfig.as
+rdockconfig_cav1.grd
+receptor.*
+results_*
+work
+xtal-lig.*

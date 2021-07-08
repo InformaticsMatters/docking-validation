@@ -1,5 +1,7 @@
 # Comparison of rDock and Smina
 
+**Target**: CDK2.
+
 This is a repeat of the work desscribed for validating rDock and Smina for
 DHFR. Look [here](../../../dhfr/expts/vs-dekois/README.md) for that data and
 for the methodology.
