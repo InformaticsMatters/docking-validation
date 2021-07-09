@@ -176,7 +176,7 @@ These are the approximate run times for the different runs (using 24 cores):
 
 ### Number of poses needed
 The rDock runs analysed above used 50 poses for each ligand. Can we get similar results with
-fewer poses. We don't need to re-run the docking, we can just use the ones from the 50 poses
+fewer poses? We don't need to re-run the docking, we can just use the ones from the 50 poses
 but only use the first n poses.
 
 All we need to do is slightly change the way we generate the data for the ROC curves.
@@ -186,7 +186,7 @@ poses that are used. For instance, to use 25 poses execute this:
 ./6_prepare_roc.sh results_rdock/results_rdock.sdf SCORE.norm 25
 ```
 That will generate files named `results_1poseperlig_from25.txt` and `results_1poseperlig_from25.sdf`.
-Copy them to the results_rdock directory and generate the ROC curve liek this (assuming you have generated
+Copy them to the results_rdock directory and generate the ROC curve like this (assuming you have generated
 data for 25 and 10 poses):
 ```
 docker run -it --rm -v $PWD:/work -w /work -u $(id -u):$(id -g) informaticsmatters/vs-prep /code/calculate-roc-curves.py\
@@ -197,6 +197,8 @@ docker run -it --rm -v $PWD:/work -w /work -u $(id -u):$(id -g) informaticsmatte
 ```
 It would also be of interest to evaluate rDock's [HT protocol](http://rdock.sourceforge.net/multistep-protocol-for-htvs/)
 but the DEKOIS datasets are not really big enough to allow this.
+
+Here is a ROC curve of the results:
 
 ![rDock](ROC-numposes.png)
 
