@@ -107,6 +107,100 @@ The Smina results are quite surpising. Whilst the vinardo scoring function perfo
 (but not quite as good as rDock) the other scoring functions behave extremely badly, being no better
 than random. The reason is not clear.
 
+Looking the rDock and vina results 6 of the actives were found in the top 100 of both results.
+
+| Molecule    | rDock  rank | Smina vinardo rank |
+|-------------|-------------|--------------------|
+| BDB50031871 | 8           | 67 |
+| BDB50031865 | 10          | 31 |
+| BDB50141011 | 35          | 76 |
+| BDB50066495 | 39          | 86 |
+| BDB50050400 | 49          | 15 |
+| BDB19385    | 63          | 9  |
+
+Choosing the top 50 from both rDock and vinardo finds 18 distinct actives, better than the average of the
+number from the top 100 of each (16), suggesting that, if computing power is not the limiting factor, it may
+be better to run both an combine the results.
+
+### Timings
+These are the approximate run times for the different runs (using 24 cores):
+
+| Tool          | Time     |
+|---------------|----------|
+| rDock         | 84 mins  |
+| Smina vinardo | 78 mins  |
+| Smina vina    | 80 mins  |
+| Smina dkoes   | 149 mins |
+| Smina ad4     | 152 mins |
+
+
+### Top 100 rDock results
+8,BDB50031871,-2.251
+9,BDB18497,-2.228
+10,BDB50031865,-2.072
+14,BDB50041929,-1.895
+22,BDB50041935,-1.773
+25,BDB50232529,-1.728
+28,BDB50058517,-1.707
+30,BDB50026300,-1.680
+35,BDB50141011,-1.668
+39,BDB50066495,-1.653
+40,BDB18045,-1.640
+43,BDB50066490,-1.608
+49,BDB50050400,-1.555
+50,BDB50051923,-1.549
+51,BDB18246,-1.539
+63,BDB19385,-1.493
+67,BDB50065297,-1.481
+69,BDB50031864,-1.476
+87,BDB50054512,-1.434
+
+### Top 100 Smina/vinardo results
+9,BDB19385,-11.427
+11,BDB50145797,-11.328
+15,BDB50050400,-11.264
+17,BDB50158569,-11.261
+31,BDB50031865,-10.893
+46,BDB18771,-10.706
+67,BDB50031871,-10.554
+70,BDB50015707,-10.519
+71,BDB50288820,-10.517
+75,BDB50049156,-10.484
+76,BDB50141011,-10.476
+86,BDB50066495,-10.401
+90,BDB50141012,-10.358
+
+### Number of poses needed
+The rDock runs analysed above used 50 poses for each ligand. Can we get similar results with
+fewer poses. We don't need to re-run the docking, we can just use the ones from the 50 poses
+but only use the first n poses.
+
+All we need to do is slightly change the way we generate the data for the ROC curves.
+The `6_prepare_roc.sh` script can take an optional third argument limiting the number of
+poses that are used. For instance, to use 25 poses execute this:
+```
+./6_prepare_roc.sh results_rdock/results_rdock.sdf SCORE.norm 25
+```
+That will generate files named `results_1poseperlig_from25.txt` and `results_1poseperlig_from25.sdf`.
+Copy them to the results_rdock directory and generate the ROC curve liek this (assuming you have generated
+data for 25 and 10 poses):
+```
+docker run -it --rm -v $PWD:/work -w /work -u $(id -u):$(id -g) informaticsmatters/vs-prep /code/calculate-roc-curves.py\
+  --actives-file-name actives.txt -o ROC-numposes.png\
+  -p1 results_rdock/results_1poseperlig.txt -l1 "rDock 50"\
+  -p2 results_rdock/results_1poseperlig_from25.txt -l2 "rDock 25"\
+  -p3 results_rdock/results_1poseperlig_from10.txt -l3 "rDock 10"
+```
+It would also be of interest to evaluate rDock's [HT protocol](http://rdock.sourceforge.net/multistep-protocol-for-htvs/)
+but the DEKOIS datasets are not really big enough to allow this.
+
+![rDock](ROC-numposes.png)
+
+In all three cases 19 actives were found in the top 100 hits.
+This suggests that the number of docking poses generated can be reduced from 50 without having
+a major impact on the results. Note that this may not be the case when rDock does not perform as
+well as it does for this DHFR target. 
+
 ## Other results
 
 This approach has been run on some other targets:
