@@ -135,6 +135,7 @@ These are the approximate run times for the different runs (using 24 cores):
 
 
 ### Top 100 rDock results
+```
 8,BDB50031871,-2.251
 9,BDB18497,-2.228
 10,BDB50031865,-2.072
@@ -154,8 +155,10 @@ These are the approximate run times for the different runs (using 24 cores):
 67,BDB50065297,-1.481
 69,BDB50031864,-1.476
 87,BDB50054512,-1.434
+```
 
 ### Top 100 Smina/vinardo results
+```
 9,BDB19385,-11.427
 11,BDB50145797,-11.328
 15,BDB50050400,-11.264
@@ -169,6 +172,7 @@ These are the approximate run times for the different runs (using 24 cores):
 76,BDB50141011,-10.476
 86,BDB50066495,-10.401
 90,BDB50141012,-10.358
+```
 
 ### Number of poses needed
 The rDock runs analysed above used 50 poses for each ligand. Can we get similar results with
